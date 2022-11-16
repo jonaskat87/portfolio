@@ -1,0 +1,336 @@
+---
+title: "Test RStudio command file"
+output:
+  word_document: default
+  html_document: default
+---
+We pause here before we get to PS 1, Problem 1 and plot some numbers associated with the coin-flip problem
+
+```{r}
+
+h <- 0.5
+h
+t <- 1.0 - h
+t
+
+0.65*0.34
+
+a <- exp(-1)
+a
+a*0.5
+a*h
+
+```
+
+We verify the central identity of the binomial distribution, namely, that the probability of all the cases, taken together is unity, even if we repeat the experiment N times
+
+```{r}
+
+h + t
+
+(h+t)*(h+t)
+
+h^2 + 2*h*t + t^2
+
+(h+t)^4
+
+h^2
+
+
+```
+a) if a coin is flipped three times, what is the probability of two heads and one tails?
+```{r}
+
+# (h+t)^3 = h^3 + 3*h*h*t + 3*h*t*t + t^3
+
+(h+t)^3
+
+h^3 + 3*h*h*t + 3*h*t*t + t^3
+
+3*h*h*t
+
+```
+
+b) if a coin is flipped three times, what is the probability of at least two heads?
+```{r}
+
+h^3 + 3*h*h*t
+
+```
+c) if a coin is flipped 8 times, what is the probability of at least 6 tails?
+
+(h+t)^8 = h^8 + 8*h^7*t + 28*h^6*t^2 + . . . + t^8
+
+```{r}
+
+(h+t)^8
+h^8 + 8*h^7*t + 28*h^6*t^2
+
+```
+d) if you bet a dollar on every coin flip, what is the probability that you have won at least $4 after eight flips? Does this probability change if you vary your choices of heads or tails for each flip?
+
+```{r}
+# word problem -- winning a dollar means that you have one more heads than tails
+# winning 2 dollars means that you won two more heads than tails, etc
+# to win at least $4 in 8 throws of a die, the heads must occur 6,7, or 8 times.
+# so the probablilty is the same as in part (c)
+
+h^8 + 8*h^7*t + 28*h^6*t^2
+
+
+```
+e) Suppose you have combined a large number of card decks (hearts, spades, clubs, diamonds) so that drawing a few cards from the deck does not change the probabilities of drawing a card significantly. (If you draw cards from a single deck, the probability of drawing a King drops by $\sim$25\% after you draw any one King.  We dont want to worry about that effect here.)  If you draw four cards from such a large deck, what is the probability that two or more of the cards will be hearts?
+
+probability of drawing a heart = 1/4 = 0.25
+
+(p+q)^4 = p^4 + 4*p^3*q + 6*p^2*q^2 + 4*p*q^3 + q^4
+
+```{r}
+p <- 0.25
+
+q <- 1.0-p
+
+(p+q)^4
+p^4 + 4*p^3*q + 6*p^2*q^2 + 4*p*q^3 + q^4
+
+p^4
+4*p^3*q
+6*p^2*q^2
+
+prob <- p^4 + 4*p^3*q + 6*p^2*q^2
+
+prob
+
+```
+f)  If you draw four cards from such a large deck, what is the probability that two or more of the cards will be Jacks?
+```{r}
+p <- 1.0/13.0
+
+q <- 1.0-p
+
+(p+q)^4
+p^4 + 4*p^3*q + 6*p^2*q^2 + 4*p*q^3 + q^4
+
+p^4
+4*p^3*q
+6*p^2*q^2
+
+prob <- p^4 + 4*p^3*q + 6*p^2*q^2
+
+prob
+
+```
+g) if you draw four cards from a single 52-card deck of cards, what is the probability of drawing two jacks?
+
+Here by drawing a card we change the probability of drawing the next card
+
+suppose we draw jack, jack, not-jack, not-jack
+
+p1 <- 4.0/52.0  : probability of drawing first jack
+p2 <- 3.0/51.0  : probability of drawing 2nd jack
+p3 <- 48.0/50.0 : probability of drawing first not-jack
+p4 <- 47.0/49.0 : probability of drawing 2nd not-jack
+
+prob <- p1*p2*p3*p4
+
+there are fac <- 4!/(2!*2!) distinct ways to draw two jacks and two not-jacks
+for each combination, the denominator and numerator will be the same
+
+total probability is fac*prob
+
+
+```{r}
+p1 <- 4.0/52.0  # probability of drawing first jack
+p2 <- 3.0/51.0  # probability of drawing 2nd jack
+p3 <- 48.0/50.0 # probability of drawing first not-jack
+p4 <- 47.0/49.0 # probability of drawing 2nd not-jack
+
+prob <- p1*p2*p3*p4
+prob
+
+fac <- factorial(4)/(factorial(2)*factorial(2)) # p1*p2*p3*p4
+fac
+probtot <- fac*prob
+probtot
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+x <- rnorm(n=1000, mean=0, sd=1)
+plot(x)
+
+```
+
+plot some more random numbers and plot against the first set
+
+```{r}
+
+y <- rnorm(n=1000, mean=0, sd=1)
+plot(x,y)
+
+```
+
+combine some more random numbers and plot against the first set, show correlation
+
+```{r}
+
+z <- (x+y)/2
+plot(x,z)
+
+```
+
+compute some means
+
+```{r}
+
+a1 <- mean(x)
+a2 <- mean(x^2)
+a3 <- mean(y)
+a4 <- mean(y^2)
+a5 <- mean((x+y)^2)
+a6 <- mean(z)
+a7 <- mean(z^2)
+a8 <- mean((x+z)^2)
+
+print(paste(a1,a2,a3,a4,a5,a6,a7,a8))
+
+```
+
+compute some more random numbers and plot
+
+```{r}
+
+x <- rnorm(n=5000, mean=0, sd=1)
+plot(x)
+```
+
+compute some more random numbers and plot
+
+```{r}
+
+
+y <- rnorm(n=5000, mean=0, sd=1)
+plot(y)
+
+```
+
+plot random numbers against each other
+
+```{r}
+
+plot(x,y)
+
+```
+
+add some correlation and replot
+
+```{r}
+
+z <- (x+y)/2
+plot(x,z)
+
+
+```
+
+```{r}
+
+mean(x)
+mean(x^2)
+mean(y)
+mean(y^2)
+mean(z)
+mean(z^2)
+mean((x+y)^2)
+mean((x+z)^2)
+b1 <- mean(x)
+b2 <- mean(x^2)
+b3 <- mean(y)
+b4 <- mean(y^2)
+b5 <- mean((x+y)^2)
+b6 <- mean(z)
+b7 <- mean(z^2)
+b8 <- mean((x+z)^2)
+
+
+print(paste(a1,a2,a3,a4,a5,a6,a7,a8))
+
+print(paste(b1,b2,b3,b4,b5,b6,b7,b8))
+
+```
+
+
+```{r}
+xx <- replicate(100,0)
+xx2 <- replicate(100,0)
+yy <- replicate(100,0)
+yy2 <- replicate(100,0)
+zz <- replicate(100,0)
+zz2 <- replicate(100,0)
+
+for (ii in 1:100){
+  x <- rnorm(n=1000, mean=0, sd=1)
+  y <- rnorm(n=1000, mean=0, sd=1)
+  z <- (x+y)/2
+  x2 <- x^2
+  y2 <- y^2
+  z2 <- z^2
+
+  xx[ii] <- mean(x)
+  xx2[ii] <- mean(x2)
+  yy[ii] <- mean(y)
+  yy2[ii] <- mean(y2)
+  zz[ii] <- mean(z)
+  zz2[ii] <- mean(z2)
+}
+hist(x,breaks=21)
+
+hist(xx,breaks=21)
+hist(xx2,breaks=21)
+
+hist(yy,breaks=21)
+hist(yy2,breaks=21)
+hist(zz,breaks=21)
+hist(zz2,breaks=21)
+
+```
+
+```{r}
+
+print("xx mean, stdev, vaiance")
+mean(xx)
+sd(xx)
+var(xx)
+print("xx^2 mean, stdev, vaiance")
+mean(xx2)
+sd(xx2)
+var(xx2)
+print("yy mean, stdev, vaiance")
+mean(yy)
+sd(yy)
+var(yy)
+print("yy^2 mean, stdev, vaiance")
+mean(yy2)
+sd(yy2)
+var(yy2)
+print("zz mean, stdev, vaiance")
+mean(zz)
+sd(zz)
+var(zz)
+print("zz^2 mean, stdev, vaiance")
+mean(zz2)
+sd(zz2)
+var(zz2)
+
+```
+
+```{r}
+
+
+
+
+

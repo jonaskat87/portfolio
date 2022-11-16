@@ -1,0 +1,174 @@
+---
+title: "PSet8"
+author: "Jeffrey Park"
+date: "11/11/2021"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+data files written as CSV file gravity_pset8.csv after computation with two secret models
+
+```{r}
+
+Gamma0 <- 6.67408e-11
+print(Gamma0)
+delzm <- 1000.0
+hm <- 10000.0
+xim <- 100.0*(-1000:1000)
+xi <- xim/1000
+
+w1m <- 0.0
+denom <- (w1m-xim)^2 + hm*hm
+gi <- 2.0*Gamma0*delzm*hm/denom
+
+plot(xi,gi,'l')
+
+```
+
+
+#  first model is 
+
+
+Problem 1a
+
+gj has units xxx
+
+Gram matrix has units xxx
+
+inverse Gram matrix has units xxx
+
+so that the units of alpha are xxx
+
+if we multiply alpha times gj, we have units xxx for drho
+
+
+Problem 1b
+```{r}
+
+
+Gamma0 <- 6.67408e-11
+print(Gamma0)
+delzm <- 1000.0
+hm <- 10000.0
+xim <- 100.0*(-1000:1000)
+xi <- xim/1000
+
+plot(xi,gi11,type='l',xlim=c(-60.0,80.0))
+
+lines(xi,gi21,'l')
+
+lines(xi,gi12,'l',col='blue')
+
+lines(xi,gi22,'l',col='blue')
+
+lines(xi,gi13,'l',col='red')
+
+lines(xi,gi23,'l',col='red')
+
+```
+Problem 1c
+
+```{r}
+# gdata <- data.frame(X = xvm,Dataset1 = gz1,Dataset2 = gz2, StDev = stdgz)
+
+gdata <- read.csv(file="gravity_pset8.csv")
+names(gdata)
+
+X <- gdata$X
+data1 <- gdata$Dataset1
+plot(X,data1)
+
+xx <- 1:N
+plot(xx,eval1)
+points(xx,eval2,col="blue")
+points(xx,eval3,col="red")
+
+
+print(paste("5-km condition number ",condo1))
+print(paste("10-km condition number ",condo2))
+print(paste("15-km condition number ",condo3))
+
+```
+Problem 1d
+```{r}
+
+data1 <- gdata$Dataset1
+
+plot(xi,model1,'l')
+
+
+plot(xi,model3,"l",col="red")
+lines(xi,model2,"l",col="blue")
+lines(xi,model1,'l')
+
+```
+
+Problem 1e
+```{r}
+
+data2 <- gdata$Dataset2
+
+plot(xi,model1,'l')
+
+
+plot(xi,model3,"l",col="red")
+lines(xi,model2,"l",col="blue")
+lines(xi,model1,'l')
+
+```
+
+Problem 2 is all calculus and algebra -- no R programming
+
+Problem 3a
+```{r}
+
+hm <- 5000.0
+
+beta_0 <- rep(0.0,N)
+xi_0 <- 0.0
+
+plot(xi,model_0,'l')
+
+
+beta_20 <- rep(0.0,N)
+xi_20 <- 20000.0
+
+plot(xi,model_20,'l')
+
+
+beta_50 <- rep(0.0,N)
+xi_50 <- 50000.0
+
+plot(xi,model_50,'l')
+
+
+```
+
+Problem 3b
+```{r}
+
+hm <- 10000.0
+
+beta_0 <- rep(0.0,N)
+xi_0 <- 0.0
+
+plot(xi,model_0,'l')
+
+
+beta_20 <- rep(0.0,N)
+xi_20 <- 20000.0
+
+plot(xi,model_20,'l')
+
+
+beta_50 <- rep(0.0,N)
+xi_50 <- 50000.0
+
+plot(xi,model_50,'l')
+
+
+```
+
+

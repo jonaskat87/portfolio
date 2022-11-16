@@ -1,0 +1,20 @@
+u0 = [0.1, 0.4, -0.3, -0.2];
+ti = 0;
+tf = 50;
+lambda = 1;
+tol = 1e-8;
+sketch = 1;
+snrf = 200;
+
+% get perfect data
+snr = 500;
+[sigmav, choicev] = varianceHH(1, u0, ti, tf, lambda, tol, snr, sketch);
+[sigmad, choiced] = deviationHH(1, u0, ti, tf, lambda, tol, snr, sketch);
+
+snrq = 10 : 10 : snrf;
+N = length(snrq);
+sigmaerrq = zeros(1, N);
+choiceerrq = zeros(
+for i = 1 : length(snrq)
+    
+end

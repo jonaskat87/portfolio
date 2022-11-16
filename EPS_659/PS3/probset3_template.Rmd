@@ -1,0 +1,125 @@
+---
+title: "Problem Set 3"
+author: "Jonas Katona"
+date: "9/24/2021"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+Hello Kitty
+
+Problem 1a
+
+
+```{r}
+xx <- seq(1.0,9.0, by=1.0)
+x <- xx^2
+print(x)
+
+```
+Problem 1b -- median
+```{r}
+
+```
+problem 1c  -- harmonic mean
+```{r}
+xinv <- x^{-1}
+```
+problem 1d -- geometric mean
+```{r}
+xlog = log(x)
+```
+problem 2e
+```{r}
+
+```
+Problem 3a
+
+```{r}
+
+sunspots <- read.csv(file="sunspots_annual_1700_2008.csv")
+head(sunspots)
+
+yr <- sunspots$YEAR
+sspots <- sunspots$SUNACTIVITY
+plot(yr,sspots)
+
+
+```
+Problem 3b
+```{r}
+
+```
+Problem 3c
+
+```{r}
+
+
+```
+ Problem 3d
+ 
+```{r}
+ 
+lspots <- log(sspots+10.0)
+ 
+
+```
+  Problem 3e
+ 
+```{r}
+
+
+```
+ Problem 3f
+ 
+```{r}
+ 
+sortspots <- sort(sspots)
+title("empirical CDF of sunspot data 1700AD-2009AD")
+
+```
+  Problem 3g
+  
+```{r}
+
+
+```
+  Problem 4 -- negative binomial
+  
+```{r}
+wins <- 3
+prob <- 0.5
+x <- seq(0,20,by=1)
+nbcdf <- pnbinom(x,wins,prob)
+nbcdf
+xx <- 3+x
+plot(xx,nbcdf)
+title("cumulative probability of three heads after a number of coin flips")
+
+
+```
+  Problem 4a
+  
+```{r}
+choose(4,2)
+
+  
+```
+  Problem 4b
+  
+```{r}
+wins <- 4
+prob <- 0.5
+
+
+  
+```
+  Problem 4c
+
+```{r}
+wins <- 4
+prob <- 0.1
+
+  
+```

@@ -1,0 +1,33 @@
+fps = [-1 0 1; 0 0 0];
+spacing = 0.2;
+[X, Y] = meshgrid(-2: spacing: 2, -2: spacing: 2);
+U = Y;
+V = X .* (1 - X .^ 2);
+
+x10q = -0.75 : 0.25 : 2;
+t0 = 0; 
+tf = 100;
+
+figure(1)
+quiver(X, Y, U, V)
+title('Phase portrait for the Duffing oscillator',...
+    'fontsize', 16)
+xlabel('$x_{1}=x$', 'interpreter', 'latex',...
+    'fontsize', 16)
+ylabel('$x_{2}=\dot{x}$', 'interpreter', 'latex',...
+    'fontsize', 16)
+xlim([-2.1 2.1])
+ylim([-2.1 2.1])
+hold on
+for i = 1 : length(x10q)
+    sol = problem3c1(x10q(i), 0, t0, tf);
+    scatter(sol(1, :)
+end
+annotation('line', [0.46 0.5] + 0.02, [0.54 0.5] + 0.02, 'color', 'm')
+annotation('line', [0.54 0.5] + 0.02, [0.46 0.5] + 0.02, 'color', 'm')
+annotation('arrow', [0.47 0.471] + 0.02, [0.53 0.529] + 0.02, 'color', 'm')
+annotation('arrow', [0.53 0.529] + 0.02, [0.47 0.471] + 0.02, 'color', 'm')
+annotation('arrow', [0.5 0.55] + 0.02, [0.5 0.55] + 0.02, 'color', 'm')
+annotation('arrow', [0.5 0.45] + 0.02, [0.5 0.45] + 0.02, 'color', 'm')
+scatter(fps(1, :), fps(2, :), 'filled')
+hold off

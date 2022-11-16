@@ -1,0 +1,188 @@
+---
+title: "PSet5"
+author: "Jeffrey Park"
+date: "9/29/2021"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+data files converted to CSV files with these commands
+
+echo 'YEAR, MONTH, DTEMPC' >! Hadcrut_GlobalAverage.csv
+sed 's[/[ [' HadCRUT.4.6.0.0.monthly_ns_avg.txt | awk '{print $1 ", " $2 ", " $3}' >> Hadcrut_GlobalAverage.csv
+
+echo 'YEAR, MONTH, DTEMPC' >! Hadcrut_NHAverage.csv
+sed 's[/[ [' HadCRUT.4.6.0.0.monthly_nh.txt | awk '{print $1 ", " $2 ", " $3}' >> Hadcrut_NHAverage.csv
+
+echo 'YEAR, MONTH, DTEMPC' >! Hadcrut_SHAverage.csv
+sed 's[/[ [' HadCRUT.4.6.0.0.monthly_sh.txt | awk '{print $1 ", " $2 ", " $3}' >> Hadcrut_SHAverage.csv
+
+
+Problem 1
+
+
+```{r}
+
+had_ns_avg <- read.csv("Hadcrut_GlobalAverage.csv")
+names(had_ns_avg)
+temps <- had_ns_avg$DTEMPC
+length(temps)
+years <- had_ns_avg$YEAR
+months <- had_ns_avg$MONTH
+
+time <- years + (months-0.5)/12.0
+time[1:24]
+
+had_sh_avg <- read.csv("Hadcrut_SHAverage.csv")
+had_nh_avg <- read.csv("Hadcrut_NHAverage.csv")
+temps_sh <- had_sh_avg$DTEMPC
+temps_nh <- had_nh_avg$DTEMPC
+length(temps_sh)
+length(temps_nh)
+
+ 
+```
+Problem 1
+plot the data
+
+```{r}
+
+
+title("Hadley Center Global Average Temperature Anomalies",xlab="year",ylab="°C anomaly referenced to 1961-1990 average")
+
+
+title("Hadley Center Northern Hemisphere Temperature Anomalies",xlab="year",ylab="°C anomaly referenced to 1961-1990 average")
+
+
+title("Hadley Center Southern Hemisphere Temperature Anomalies",xlab="year",ylab="°C anomaly referenced to 1961-1990 average")
+
+
+```
+Problem 1a -- t-test on the first and last decades of the 20th century
+
+```{r}
+
+print(paste("mean of 1900s is ",mean1900s," degrees C, with standard deviation ",sdm1900s))
+print(paste("mean of 1990s is ",mean1990s," degrees C, with standard deviation ",sdm1990s))
+
+print(testt)
+
+```
+
+
+Problem 1b -- two-way T-tests of decadal sample means
+```{r}
+
+
+print(testt)
+print(testt$statistic)
+print(testt$conf.int)
+
+```
+Problem 1c -- t.tests of sample means of successive decades
+```{r}
+
+decade1_t <- 1:16
+decade1_logp <- 1:16
+decade2_t <- 1:16
+decade2_logp <- 1:16
+dtime <- seq(1860,2010,by=10)
+dtime
+
+title("Decadal comparisons: Global Average Temperature Anomalies")
+
+
+```
+
+Problem 1d -- t.tests of sample means of successive decades: Northern Hemisphere
+```{r}
+
+
+par(mfrow=c(2,2))
+
+title("Decadal comparisons: Northern Hemisphere Anomalies")
+
+```
+Problem 1d -- t.tests of sample means of successive decades: Southern Hemisphere
+```{r}
+
+title("Decadal comparisons: Southern Hemisphere Anomalies")
+
+
+```
+Problem 2a -- Plot some F variance ratio distributions
+
+```{r}
+
+fvarrat <- seq(0.1,10.0,by=0.01)
+
+title(" 2 & 8 (red), 10 & 20 (green) and 17 & 2000 (blue) dof",ylab="F-distribution PDF")
+
+title(" 2 & 8 (red), 10 & 20 (green) and 17 & 2000 (blue) dof",ylab="LOG F-distribution PDF")
+
+```
+Problem 2b -- ANOVA with global temperature anomalies
+
+
+```{r}
+
+decade_means <- 1:17
+decade_vars <- 1:17
+totpts <- 17*120
+
+print(paste("ANOVA probability of nonrandomness is ",anova_prob,"  p-value: ",pval))
+
+```
+
+Problem 2c -- slice the temp anomalies by month
+
+
+```{r}
+
+totpts <- 120*12
+monthly_means <- 1:12
+monthly_vars <- 1:12
+
+print(paste("stdev of within is ",st_within,"  stdev of among is ",st_among))
+print(paste("F variance ratio is ",frat))
+
+
+print(paste("ANOVA probability of nonrandomness is ",anova_prob,"  p-value: ",pval))
+
+```
+Problem 3a -- the correlation of hemispheric temperature anomalies
+
+
+```{r}
+
+rcorr <- 1:17
+nn <- 120
+
+
+
+```
+
+Problem 3bc -- the correlation of hemispheric temperature anomalies
+
+
+```{r}
+
+
+plot(dtime,pvals)
+
+
+```
+
+  problem 3d -- compute the correlation between the sequences of decadal means 
+  for the Northern and Southern Hemispheres
+  
+```{r}
+
+dmeans_nh <- 1:17
+dmeans_sh <- 1:17
+
+print(paste("Correlation probability of nonrandomness is ",rprobs,"  p-value: ",pval))
+
+```

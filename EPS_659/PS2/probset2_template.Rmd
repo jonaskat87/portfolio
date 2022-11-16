@@ -1,0 +1,93 @@
+---
+title: "PSet2"
+author: "Jeffrey Park"
+date: "8/26/2021"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+Hello Kitty
+
+```{r}
+# install.packages("pracma")
+x <- seq(-5.0,5.0, by=0.01)
+p <- seq(0.001,.999,by=0.001)
+x[1000]
+x[1]
+p[999]
+p[1]
+
+dd <- dnorm(x,sd=1)
+plot(x,dd)
+
+```
+
+```{r}
+
+pp <- pnorm(x,sd=1)
+plot(x,pp)
+
+
+```
+```{r}
+qq <- qnorm(p,sd=1)
+plot(p,qq)
+
+``` 
+```{r}
+nn <- 1000
+xx <- rnorm(nn,sd=1)
+hist(xx,breaks=41)
+ddnn <- nn*dd/5
+lines(x,ddnn)
+
+```
+```{r}
+nn <- 10000
+xx <- rnorm(nn,sd=1)
+hist(xx,breaks=seq(-6.0,6.0,by=0.2))
+ddnn <- nn*dd/5.0
+lines(x,ddnn)
+
+```
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+here is another comment that JPark has made
+
+```{r}
+
+z <- (x+y)/2
+plot(x,z)
+mean(x)
+mean(x^2)
+mean(y)
+mean(y^2)
+mean(z)
+mean(z^2)
+mean((x+y)^2)
+mean((x+z)^2)
+
+```
+ 

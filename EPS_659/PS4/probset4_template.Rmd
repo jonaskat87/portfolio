@@ -1,0 +1,152 @@
+---
+title: "PSet4"
+author: "Jeffrey Park"
+date: "9/23/2021"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+Hello Kitty
+
+HADCRUT data file converted to CSV file with these commands
+
+echo 'YEAR, MONTH, DTEMPC' >! Hadcrut_GlobalAverage.csv
+sed 's[/[ [' HadCRUT.4.6.0.0.monthly_ns_avg.txt | awk '{print $1 ", " $2 ", " $3}' >> Hadcrut_GlobalAverage.csv
+
+
+Problem 1
+
+
+```{r}
+
+had_ns_avg <- read.csv("Hadcrut_GlobalAverage.csv")
+names(had_ns_avg)
+temps <- had_ns_avg$DTEMPC
+length(temps)
+years <- had_ns_avg$YEAR
+months <- had_ns_avg$MONTH
+
+time <- years + (months-0.5)/12.0
+time[1:24]
+ 
+```
+Problem 1a
+plot the data
+
+```{r}
+
+
+title("Hadley Center Global Average Temperature Anomalies",xlab="year",ylab="°C anomaly referenced to 1961-1990 average")
+
+
+```
+
+Problem 1b -- sample mean and sample variance of entire time series
+```{r}
+
+
+
+```
+problem 1c  -- QQ plot
+```{r}
+
+title("QQ Plot of Global-Average Temp Anomalies",xlab="Empirical CDF",ylab="Gaussian CDF")
+
+
+```
+problem 1d  -- Beta distribution and the median
+
+```{r}
+print(paste("the CDF deviation of the median (\rho) is ",rho))
+
+
+print(paste("the Beta PDF at the sample median is ",pdf_factor," smaller than at the theoretical median"))
+
+
+```
+Problem 1e -- sample means of decades
+```{r}
+
+decade_means <- 1:17
+dtime <- seq(1855,2015,by=10)
+dtime
+
+title("Hadley Center Global Average Temperature Anomalies")
+
+```
+Problem 1f -- compare first and last decades of the 20th century
+
+```{r}
+
+
+title("first and last decades of 20th century Global-Average Temp Anomalies",xlab="Degrees Celsius",ylab="Empirical and Gaussian CDFs")
+
+
+
+```
+Problem 2 -- Earthquake distributions
+
+dataset obtained via obspy and Python with
+
+starttime = UTCDateTime("1980-01-01")
+#starttime = UTCDateTime("2010-01-01")
+endtime = UTCDateTime("2021-01-02")
+
+cat = client1.get_events(starttime=starttime,
+      endtime=endtime,minmagnitude=6.0, orderby='magnitude')
+original_stdout = sys.stdout # Save a reference to the original standard output
+with open('events6.0.txt', 'w') as f:
+    sys.stdout = f # Change the standard output to the file we created.
+    print(cat.__str__(print_all=True))
+    sys.stdout = original_stdout # Reset the standard output to its original value
+
+
+--> Then manipulated with AWK to form a CSV file to read with R
+
+echo 'YEAR, MONTH, DAY, SLAT, SLON, MAG, MAGTYPE' >! GlobalEarthquakes6.0.csv
+sed 's[-[ [g' events6.0.txt | sed 's[T[ [g'  | sed 's[|[ [g'  >! blob
+awk 'NR > 1 {print $1 ", " $2 ", " $3 ", " $5 " " $6 ", " $7 ", " $8}' blob >> GlobalEarthquakes6.0.csv
+
+Problem 2cd -- the anti-CDF of earthquake magnitudes
+
+plotting the anti-CDF
+
+let mags be a vector of Richter magnitudes, sorted ascending
+
+nevents <- length(mags)
+dstep <- 1.0/nevents
+steps <- seq(1.0-dstep/2.0,dstep/2.0,length.out = nevents)
+plot(mags,steps,type="l",log="y")
+
+```{r}
+
+gevents <- read.csv("GlobalEarthquakes6.0.csv")
+names(gevents)
+
+```
+R syntax tricks for extracting values from a data frame
+
+plot(plotframe[,4], plotframe[,5],xlab="PC1",ylab="PC2", col="white")
+points(plotframe[plotframe[,2] == name4,4], plotframe[plotframe[,2] == name4,5],col="green",xlab="PC1",ylab="PC2")
+points(plotframe[plotframe[,2] == name5,4], plotframe[plotframe[,2] == name5,5],col="red")
+points(meanie[1,4:5],meanie[2,4:5],pch=15,col="blue")
+title(title3)
+
+# this is a logical array that is TRUE or FALSE, serves as a screen for rows of the 
+# dataframe Plotframe that are associate with the string name3 in column 1
+loggy <- plotframe[,1] != name3  
+
+
+
+Problem 2e -- the frequency of great earthquakes versus Poisson distribution
+
+
+```{r}
+
+yrs <- 1980:2020
+length(yrs)
+
+```
+
+  

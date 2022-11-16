@@ -1,0 +1,1568 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PS6}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Problem Set 6}\label{problem-set-6}
+
+\subsubsection{Jonas Katona}\label{jonas-katona}
+
+\paragraph{Math 228B}\label{math-228b}
+
+\paragraph{Professor Per-Olof Persson}\label{professor-per-olof-persson}
+
+\textbf{Note:} I used Julia 1.0.0 for this problem set.
+
+    \subsection{Problem 1}\label{problem-1}
+
+One can use a nonlinear hyperbolic PDE (partial differential equation)
+to model macroscopic traffic flows, which can be derived from continuity
+and conservation of vehicles on a stretch of roadway:
+
+\[
+\frac{\partial\rho}{\partial t}+\frac{\partial\left(\rho u\right)}{\partial x}=0,\quad(1)
+\]
+
+where \(x\) is position on the roadway in kilometers (km), \(t\) is time
+in units, \(\rho=\rho\left(x,t\right)\) is the density of cars
+(vehicles/km), and \(u=u\left(x,t\right)\) is the velocity (km/unit).
+\((1)\) is in the form of what is called a conservation law (namely, it
+shows that the cars are conserved). From here, we can define the product
+\(\rho u\) as being equal to \(f\left(\rho\right)\), where \(f\) is the
+flux of cars (vehicles/km/s). From here, we need to make some assumption
+of how the density function \(\rho\) and the velocity function \(u\) are
+related. To simplify things, we can assume a linear model. Namely, we
+will use a model known as the Greenshields model, in which the velocity
+\(u\) is a function of density \(\rho\) as
+
+\[
+u(\rho\left(x,t\right))=u_{max}\left(1-\frac{\rho\left(x,t\right)}{\rho_{max}}\right),
+\]
+
+where \(u_{max}\) is the maximum speed on the given stretch of roadway
+in question (say, the speed limit), and \(0\leq\rho\leq\rho_{max}\),
+such that the density of cars cannot be negative (which is unphysical)
+and \(\rho_{max}\) is the maximum density of cars. (The latter must be
+enforced, because after all, the cars cannot crash into each other, and
+each takes up some volume of space.)
+
+Numerically, we can solve this formulation of the traffic flow problem
+using a first-order finite volume scheme of the form
+
+\[
+\rho_{i}^{n+1}=\rho_{i}^{n}-\frac{\Delta t}{\Delta x}\left(F_{i+1/2}^{n}-F_{i-1/2}^{n}\right),\quad(2)
+\]
+
+where it is understood that, for \(\rho\), superscripts refer to indices
+in time and subscripts refer to indices in position, such that
+\(\rho_{i}^{n}\approx\rho\left(x_{i},t_{n}\right)\), and for \(F\),
+\(F_{i+1/2}^{n}\) is the \emph{numerical} flux function over some cell
+\(\left[x_{i},x_{i+1}\right]\) at some time \(t_{n}\). \((2)\) can be
+derived by applying the integral form of \((1)\) and discretizing it in
+a neighborhood of radius \(\frac{\Delta x}{2}\) about each point
+\(x_{i}\) (i.e. in a cell where all points \(x\) in the cell satisfy
+\(\left|x_{i}-x\right|<\frac{\Delta x}{2}\)):
+
+\[
+\frac{\partial\rho}{\partial t}+\frac{\partial f\left(\rho\right)}{\partial x}=0\Rightarrow\frac{d}{dt}\int_{x_{i}-\frac{\Delta x}{2}}^{x_{i}+\frac{\Delta x}{2}}{\rho dx}=-\int_{x_{i}-\frac{\Delta x}{2}}^{x_{i}+\frac{\Delta x}{2}}{\frac{\partial f\left(\rho\right)}{\partial x}dx}=-\left[f\left(\rho\left(x_{i}+\frac{\Delta x}{2},t\right)\right)-f\left(\rho\left(x_{i}-\frac{\Delta x}{2},t\right)\right)\right],
+\]
+
+and from here, we can discretize the integral term on the left via a
+midpoint Riemann sum in position and then a forward difference in time.
+Rearranging the result will give us \((2)\).
+
+We want to compare the numerical results from two different schemes:
+namely, Roe's scheme and Godunov's scheme. These both use the same
+finite volume scheme \((2)\), and only differ in how they each calculate
+\(F\). For Roe's scheme,
+
+\[
+F_{i+1/2}^{n}=\frac{1}{2}\left[f\left(\rho_{i}^{n}\right)+f\left(\rho_{i+1}^{n}\right)\right]-\frac{1}{2}\left|a_{i+1/2}^{n}\right|\left(\rho_{i+1}^{n}-\rho_{i}^{n}\right),
+\]
+
+where
+
+\[
+a_{i+1/2}^{n}=u_{max}\left(1-\frac{\rho_{i}^{n}+\rho_{i+1}^{n}}{\rho_{max}}\right).
+\]
+
+Roe's scheme uses a linearization of the Jacobian of
+\(f\left(\rho\right)\), the actual car flux, and then uses this to
+approximate the flux in cell \(\left[x_{i},x_{i+1}\right]\). It is an
+approximate Riemann solver, in that the Jacobian is used to approximate
+the flux in the cell, and in our case, it actually is the same as the
+first-order upwind scheme. This means that, as shown in lecture,
+regardless of the size of the stepsize used, it might preserve
+entropy-violating solutions, giving us possibly incorrect shocks in some
+cases. However, it is not very computationally costly, and that is where
+the benefit might lie in using this scheme.
+
+On the other hand, Godunov's scheme is an \emph{exact} Riemann solver.
+Also as discussed in lecture, it is a monotone, entropy-satisfying
+scheme, meaning that it will give us the correct shocks, provided that
+the stepsize is adequate. The numerical flux for Godunov's scheme is
+given by
+
+\[
+F_{i+1/2}^{n}=\left\{\begin{matrix} \min_{\rho\in\left[\rho_{i}^{n},\rho_{i+1}^{n}\right]}{f\left(\rho\right)},\quad\rho_{i}^{n}<\rho_{i+1}^{n} \\ \max_{\rho\in\left[\rho_{i}^{n},\rho_{i+1}^{n}\right]}{f\left(\rho\right)},\quad\rho_{i}^{n}>\rho_{i+1}^{n} \end{matrix}\right..
+\]
+
+Next, we write utility functions which will help compute various
+quantities necessary for solving the scheme described in \((2)\) with
+numerical fluxes calculated via Roe's scheme or Godunov's scheme.
+Namely, \texttt{carflux} returns the flux of cars given \texttt{ρ}, the
+density of cars, \texttt{umax}, which is \(u_{max}\) (a.k.a. the "speed
+limit"), and \texttt{ρmax}, the maximum number of cars allowed over a
+given distance (a.k.a. the maximum allowed density). \texttt{roeflux}
+returns the numerical flux calculated via Roe's scheme, given
+\texttt{ρi}, the density at the left end of a cell in question,
+\texttt{ρf}, the density at the right end, and \texttt{umax} and
+\texttt{ρmax} the same.
+
+Finally \texttt{godunovflux} does the same as for \texttt{roeflux},
+except using Godunov's scheme. However, we should explain how our
+function works a little bit more. We note that the flux function is
+quadratic in \(\rho\). Therefore, any local extremum (there can only be
+up to one) is actually a \emph{global} extremum. Furthermore, if the
+flux function is concave up, this is a global \emph{minimum}, and a
+global \emph{maximum} if the flux function is concave down. We calculate
+each of these for our flux function.
+
+\[
+f\left(\rho\right)=\rho u_{max}\left(1-\frac{\rho}{\rho_{max}}\right)\Rightarrow f'\left(\rho\right)=u_{max}-2\frac{\rho u_{max}}{\rho_{max}}\\
+\Rightarrow f'\left(\overline{\rho}\right)=u_{max}-2\frac{\overline{\rho} u_{max}}{\rho_{max}}=0\Rightarrow\overline{\rho}=\frac{\rho_{max}}{2}.
+\]
+
+Thus, the local extremum for our flux is located at
+\(\overline{\rho}=\rho_{max}/2\). To determine whether this is a flux
+minimum or a flux maximum, we now check the concavity for our flux
+function. Since \(f''\left(\rho\right)=-\frac{2u_{max}}{\rho_{max}}\),
+and both \(\rho_{max},u_{max}>0\) (we cannot have a negative speed limit
+nor maximum density), our flux function is always concave down.
+Therefore, \(f\left(\overline{\rho}\right)\) is actually a flux
+\emph{maximum}.
+
+Hence, by comparing the density at the endpoints of the cell in question
+relative to the location of the maximum at
+\(\overline{\rho}=\rho_{max}/2\), we can determine the maximum or
+minimum flux in that cell. If
+\(\overline{\rho}\in\left[\rho_{i},\rho_{i+1}\right]\), then of course,
+that is where the maximum flux is located. Otherwise, if
+\(\overline{\rho}\not\in\left[\rho_{i},\rho_{i+1}\right]\), then the
+flux throughout the cell must be completely increasing or decreasing. If
+the cell lies to the left of \(\overline{\rho}\), then the cell maximum
+is at \(\rho_{i+1}\) and the minimum at \(\rho_{i}\), because the flux
+must be increasing leading up to \(\overline{\rho}\). However, if the
+cell lies to the right of \(\overline{\rho}\), then the opposite is
+true, because the flux decreases for all \(\rho\) after
+\(\overline{\rho}\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{k}{function} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρ}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+              \PY{n}{f} \PY{o}{=} \PY{n}{ρ} \PY{o}{*} \PY{n}{umax} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{ρ} \PY{o}{/} \PY{n}{ρmax}\PY{p}{)}
+              \PY{k}{return} \PY{n}{f}
+          \PY{k}{end}
+          
+          \PY{k}{function} \PY{n}{roeflux}\PY{p}{(}\PY{n}{ρi}\PY{p}{,} \PY{n}{ρf}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+              \PY{n}{a} \PY{o}{=} \PY{n}{umax} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{n}{ρi} \PY{o}{+} \PY{n}{ρf}\PY{p}{)} \PY{o}{/} \PY{n}{ρmax}\PY{p}{)}\PY{p}{)}
+              \PY{n}{FR} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{p}{(}\PY{n}{carflux}\PY{p}{(}\PY{n}{ρi}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)} \PY{o}{+} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρf}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{abs}\PY{p}{(}\PY{n}{a}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{ρf} \PY{o}{\PYZhy{}} \PY{n}{ρi}\PY{p}{)}
+              \PY{k}{return} \PY{n}{FR}
+          \PY{k}{end}
+          
+          \PY{k}{function} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρi}\PY{p}{,} \PY{n}{ρf}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+              \PY{c}{\PYZsh{}calculate distance in ρ from the global maximum flux of cars at 0.5 * ρmax}
+              \PY{c}{\PYZsh{}the smaller the distance, the larger the flux must be there}
+              \PY{n}{ρidist} \PY{o}{=} \PY{n}{abs}\PY{p}{(}\PY{n}{ρi} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{ρmax}\PY{p}{)}
+              \PY{n}{ρfdist} \PY{o}{=} \PY{n}{abs}\PY{p}{(}\PY{n}{ρf} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{ρmax}\PY{p}{)} 
+              \PY{k}{if} \PY{n}{ρi} \PY{o}{\PYZlt{}} \PY{n}{ρf} \PY{c}{\PYZsh{}we want the minimum flux}
+                  \PY{k}{if} \PY{n}{ρidist} \PY{o}{\PYZlt{}} \PY{n}{ρfdist} \PY{c}{\PYZsh{}then ρi \PYZgt{} ρf}
+                      \PY{n}{FG} \PY{o}{=} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρf}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{elseif} \PY{n}{ρidist} \PY{o}{\PYZgt{}} \PY{n}{ρfdist} \PY{c}{\PYZsh{}then ρi \PYZlt{} ρf}
+                      \PY{n}{FG} \PY{o}{=} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρi}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{elseif} \PY{n}{ρidist} \PY{o}{==} \PY{n}{ρfdist} \PY{c}{\PYZsh{}same distance, same flux}
+                      \PY{n}{FG} \PY{o}{=} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρi}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{end}
+              \PY{k}{elseif} \PY{n}{ρi} \PY{o}{\PYZgt{}} \PY{n}{ρf} \PY{c}{\PYZsh{}we want the maximum flux}
+                  \PY{k}{if} \PY{n}{ρidist} \PY{o}{\PYZlt{}} \PY{n}{ρfdist} \PY{c}{\PYZsh{}then ρi \PYZgt{} ρf}
+                      \PY{n}{FG} \PY{o}{=} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρi}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{elseif} \PY{n}{ρidist} \PY{o}{\PYZgt{}} \PY{n}{ρfdist} \PY{c}{\PYZsh{}then ρi \PYZlt{} ρf}
+                      \PY{n}{FG} \PY{o}{=} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρf}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{elseif} \PY{n}{ρidist} \PY{o}{==} \PY{n}{ρfdist} \PY{c}{\PYZsh{}same distance, same flux}
+                      \PY{n}{FG} \PY{o}{=} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρi}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{end}
+                  \PY{k}{if} \PY{n}{ρi} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{ρmax} \PY{o}{\PYZlt{}} \PY{n}{ρf} \PY{o}{||} \PY{n}{ρf} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{ρmax} \PY{o}{\PYZlt{}} \PY{n}{ρi} 
+                      \PY{c}{\PYZsh{}however, if the global maximum flux of cars lies between }
+                      \PY{c}{\PYZsh{}the start and end points, choose that one}
+                      \PY{n}{FG} \PY{o}{=} \PY{n}{carflux}\PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{ρmax}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{end}
+              \PY{k}{elseif} \PY{n}{ρi} \PY{o}{==} \PY{n}{ρf} \PY{c}{\PYZsh{}if the fluxes are equal, then we can just take the raw flux}
+                  \PY{n}{FG} \PY{o}{=} \PY{n}{carflux}\PY{p}{(}\PY{n}{ρi}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+              \PY{k}{end}
+              \PY{k}{return} \PY{n}{FG}
+          \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}174}]:} godunovflux (generic function with 1 method)
+\end{Verbatim}
+            
+    Next, we use these utility functions to find a numerical solution to the
+problem of a traffic light turning green at time \(t=0\). In particular,
+we want to see the solution at \(t=2\) for the following initial
+conditions and parameters which represent this physical scenario:
+
+\[
+\rho_{max}=1.0,\quad\rho_{L}=0.8,\quad u_{max}=1.0,\\
+\rho\left(0\right)=\left\{\begin{matrix} \rho_{L},\quad x<0 \\ 0,\quad x\geq 0 \end{matrix}\right..
+\]
+
+For our finite volume scheme outlined in \((2)\), we will use a spatial
+stepsize of \(\Delta x=4/400\) and a timestep of
+\(\Delta t = 0.8\Delta x/u_{max}\).
+
+The exact solution to this problem is given by the following:
+
+\[
+\rho\left(x,t\right)=\left\{\begin{matrix} \rho_{L},\quad x<\left(\frac{\rho_{max}-2\rho_{L}}{\rho_{max}}\right)t \\ \frac{\rho_{max}}{2}\left(1-x/t\right),\quad \left(\frac{\rho_{max}-2\rho_{L}}{\rho_{max}}\right)t\leq x\leq t \\ 0,\quad x>t\end{matrix}\right.,
+\]
+
+as solvable via method of characteristics. Therefore, from this
+theoretical solution, physically, we would expect that, after \(t=0\), a
+shock will form at the location of the discontinuity, as the cars move
+forward. As cars move forward, the car density decreases, and in
+response, cars behind them also move forward to fill up the decreasing
+density in front of them. Thus, the resulting shockwave will be in the
+form of a line that spreads out backwards and forwards about \(t=0\) in
+time (i.e. the slope of the line decreases from infinity with time at
+\(t=0\) as it moves out in both directions, approaching zero as
+\(t\rightarrow\infty\)). We should expect this behavior in our numerical
+solutions.
+
+\textbf{Roe's Scheme}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{using} \PY{n}{LinearAlgebra}
+        \PY{k}{using} \PY{n}{PyPlot}
+        
+        \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+        \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+        \PY{n}{ρL} \PY{o}{=} \PY{l+m+mf}{0.8}
+        \PY{n}{dx} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{/} \PY{l+m+mi}{400}
+        \PY{n}{dt} \PY{o}{=} \PY{l+m+mf}{0.8} \PY{o}{*} \PY{n}{dx} \PY{o}{/} \PY{n}{umax}
+        \PY{n}{xq} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2} \PY{o}{:} \PY{n}{dx} \PY{o}{:} \PY{l+m+mi}{2}
+        \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+        \PY{n}{tf} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{tq} \PY{o}{=} \PY{l+m+mi}{0} \PY{o}{:} \PY{n}{dt} \PY{o}{:} \PY{n}{tf}
+        
+        \PY{c}{\PYZsh{}load initial condition vector}
+        \PY{n}{ρi} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{n}
+            \PY{k}{if} \PY{n}{xq}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}
+                \PY{n}{ρi}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{ρL}
+            \PY{k}{else} \PY{c}{\PYZsh{}save time; stop running once at 0}
+                \PY{k}{break}
+            \PY{k}{end}
+        \PY{k}{end}
+        
+        \PY{n}{ratio} \PY{o}{=} \PY{n}{dt} \PY{o}{/} \PY{n}{dx}
+        \PY{n}{m} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{tq}\PY{p}{)}
+        \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+        \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi}
+        \PY{n}{Fforward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+        \PY{n}{Fbackward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+        \PY{k}{for} \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{m}
+            \PY{n}{ρqi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{j} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{c}{\PYZsh{}calculate backwards and forwards fluxes}
+                \PY{n}{Fforward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{roeflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                \PY{n}{Fbackward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{roeflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{k}{end}
+            \PY{c}{\PYZsh{}use quadratic interpolation to reconstruct ρ at the boundaries}
+            \PY{c}{\PYZsh{}i = 1}
+            \PY{n}{Fforward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{roeflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{c}{\PYZsh{}Vandermonde matrix}
+            \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}
+            \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}
+            \PY{n}{coeff} \PY{o}{=} \PY{n}{A} \PY{o}{\PYZbs{}} \PY{n}{b}
+            \PY{n}{ρq0} \PY{o}{=} \PY{n}{dot}\PY{p}{(}\PY{n}{coeff}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{dx} \PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{dx}\PY{p}{)} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Fbackward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{roeflux}\PY{p}{(}\PY{n}{ρq0}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{c}{\PYZsh{}i = n}
+            \PY{c}{\PYZsh{}Vandermonde matrix}
+            \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}
+            \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{]}
+            \PY{n}{coeff} \PY{o}{=} \PY{n}{A} \PY{o}{\PYZbs{}} \PY{n}{b}
+            \PY{n}{ρqnplusone} \PY{o}{=} \PY{n}{dot}\PY{p}{(}\PY{n}{coeff}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx} \PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx}\PY{p}{)} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Fforward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{roeflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{ρqnplusone}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{n}{Fbackward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{roeflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{n}{ρq}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρqi} \PY{o}{\PYZhy{}} \PY{n}{ratio} \PY{o}{*} \PY{p}{(}\PY{n}{Fforward} \PY{o}{\PYZhy{}} \PY{n}{Fbackward}\PY{p}{)} \PY{c}{\PYZsh{}update with FVM}
+        \PY{k}{end}
+        
+        \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{m}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{i}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{R}\PY{l+s}{o}\PY{l+s}{e}\PY{l+s}{\PYZsq{}}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{c}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{m}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{i}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{R}\PY{l+s}{o}\PY{l+s}{e}\PY{l+s}{\PYZsq{}}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} PyObject Text(0.5, 1.0, "Solution to the traffic light problem via Roe's scheme")
+\end{Verbatim}
+            
+    Not only does Roe's scheme give us an entropy-violating solution where
+the characteristics for negative \(x\) remain as a straight, vertical
+line in the \(\left(x,t\right)\) plane (when they should form an
+expansion fan about \(x=0\) in the \(\left(x,t\right)\) plane), but we
+do not even get a valid shockwave. Clearly, this solution is unphysical;
+Roe's scheme not only failed to give us the correct shock, but did not
+even give us a valid shock in the first place.
+
+\textbf{Godunov's Scheme}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{using} \PY{n}{LinearAlgebra}
+        \PY{k}{using} \PY{n}{PyPlot}
+        
+        \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+        \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+        \PY{n}{ρL} \PY{o}{=} \PY{l+m+mf}{0.8}
+        \PY{n}{dx} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{/} \PY{l+m+mi}{400}
+        \PY{n}{dt} \PY{o}{=} \PY{l+m+mf}{0.8} \PY{o}{*} \PY{n}{dx} \PY{o}{/} \PY{n}{umax}
+        \PY{n}{xq} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2} \PY{o}{:} \PY{n}{dx} \PY{o}{:} \PY{l+m+mi}{2}
+        \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+        \PY{n}{tf} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{tq} \PY{o}{=} \PY{l+m+mi}{0} \PY{o}{:} \PY{n}{dt} \PY{o}{:} \PY{n}{tf}
+        
+        \PY{c}{\PYZsh{}load initial condition vector}
+        \PY{n}{ρi} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{n}
+            \PY{k}{if} \PY{n}{xq}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}
+                \PY{n}{ρi}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{ρL}
+            \PY{k}{else} \PY{c}{\PYZsh{}save time; stop running once at 0}
+                \PY{k}{break}
+            \PY{k}{end}
+        \PY{k}{end}
+        
+        \PY{n}{ratio} \PY{o}{=} \PY{n}{dt} \PY{o}{/} \PY{n}{dx}
+        \PY{n}{m} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{tq}\PY{p}{)}
+        \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+        \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi}
+        \PY{n}{Fforward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+        \PY{n}{Fbackward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+        \PY{k}{for} \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{m}
+            \PY{n}{ρqi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{j} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{c}{\PYZsh{}calculate backwards and forwards fluxes}
+                \PY{n}{Fforward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                \PY{n}{Fbackward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{k}{end}
+            \PY{c}{\PYZsh{}use quadratic interpolation to reconstruct ρ at the boundaries}
+            \PY{c}{\PYZsh{}i = 1}
+            \PY{n}{Fforward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{c}{\PYZsh{}Vandermonde matrix}
+            \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}
+            \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}
+            \PY{n}{coeff} \PY{o}{=} \PY{n}{A} \PY{o}{\PYZbs{}} \PY{n}{b}
+            \PY{n}{ρq0} \PY{o}{=} \PY{n}{dot}\PY{p}{(}\PY{n}{coeff}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{dx} \PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{dx}\PY{p}{)} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Fbackward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρq0}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{c}{\PYZsh{}i = n}
+            \PY{c}{\PYZsh{}Vandermonde matrix}
+            \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}
+            \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{]}
+            \PY{n}{coeff} \PY{o}{=} \PY{n}{A} \PY{o}{\PYZbs{}} \PY{n}{b}
+            \PY{n}{ρqnplusone} \PY{o}{=} \PY{n}{dot}\PY{p}{(}\PY{n}{coeff}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx} \PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx}\PY{p}{)} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Fforward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{ρqnplusone}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{n}{Fbackward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+            \PY{n}{ρq}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρqi}\PY{o}{\PYZhy{}} \PY{n}{ratio} \PY{o}{*} \PY{p}{(}\PY{n}{Fforward} \PY{o}{\PYZhy{}} \PY{n}{Fbackward}\PY{p}{)} \PY{c}{\PYZsh{}update with FVM}
+        \PY{k}{end}
+        
+        \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{m}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{i}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{G}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{\PYZsq{}}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{b}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{c}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{m}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{i}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{G}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{\PYZsq{}}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} PyObject Text(0.5, 1.0, "Solution to the traffic light problem via Godunov's scheme")
+\end{Verbatim}
+            
+    On the other hand, Godunov's solution gave us exactly what we expected:
+a valid shock wave, where the shocks are lines going through \(x=0\) at
+the maximum flux value, or \(\rho_{max}/2\). These form fans which
+approach the vertical line at \(x=0\) as \(t\rightarrow\infty\). Also,
+from the theory, we expect that the left side of the shock travels with
+speed \(\frac{\rho_{max}-2\rho_{L}}{\rho_{max}}\), which is equal to
+\(1-2(0.8)=-0.6\) km/unit for our choice of parameters, and that the
+right side of the shock travels with unit speed. We observe that these
+are obeyed by our numerical solution given by Godunov's scheme.
+
+\subsection{Problem 2}\label{problem-2}
+
+Next, we simulate the effect of a traffic light at \(x=-\Delta x/2\)
+with a period of \(T=2\) units. For the first half of the period, the
+traffic light is red, and the cars cannot move if behind
+\(x=-\Delta x/2\), but for the second half of the period, the traffic
+light is green, and hence, the cars can move freely throughout the whole
+spatial domain. Of course, cars can only move in the same direction,
+which we have set as being to the right. (Physically, this domain
+represents the section of roadway which we are analyzing.) To simulate
+this traffic light, whenever the light is red, we can set the
+\emph{forward} flux (i.e. \(F_{i+1/2}\)) at \(x=-\Delta x/2\) equal to
+zero and the \emph{backward} flux (i.e. \(F_{i-1/2}\)) at \(x=0\) as
+both being equal to zero. This represents how, physically, when there is
+a red light, no cars can move forward at the traffic light (after all,
+they are stopped), and no cars \emph{could} have moved from behind the
+traffic light in the cell immediately after the traffic light.
+
+We run our simulation until we reach steady-state, periodic traffic
+flow. (Note that steady-state in this case does not mean that we expect
+the traffic flow to not change over a period; rather, after a while,
+each period \(T=2\) yields the same, periodic dynamics.) To gauge if
+this is reached, we calculate and save the average flow (road capacity)
+for each period. At a given spatial grid point \(x_{i}\), this can be
+approximated as
+
+\[
+\dot{q}_{i}=\frac{1}{m}\sum_{j=1}^{m}{f^{j}}=\frac{1}{m}\sum_{j=1}^{m}{\rho^{j}u^{j}}
+\]
+
+for \(m\) timesteps per period \(T\) (in our code as \texttt{m}).
+(Superscripts in this case are indices in time, NOT exponents.) However,
+since the road capacity is defined as the flux of cars \emph{per}
+section of roadway, to calculate the average flow over our whole domain,
+we need to average this over the entire domain. Thus, for each period
+over the whole domain, \(\dot{q}\) can be approximated as
+
+\[
+\dot{q}=\frac{1}{n-2}\sum_{i=2}^{n-1}\left(\frac{1}{m}\sum_{j=1}^{m}{f_{i}^{j}}\right)=\frac{1}{m\left(n-2\right)}\sum_{i=2}^{n-1}\sum_{j=1}^{m}{f_{i}^{j}}=\frac{1}{m\left(n-2\right)}\sum_{i=2}^{n-1}\sum_{j=1}^{m}{f_{i}^{j}}=\frac{1}{m\left(n-2\right)}\sum_{i=2}^{n-1}\sum_{j=1}^{m}{\rho_{i}^{j}u_{i}^{j}}
+\]
+
+for \(n\) spatial grid points in total. (We omitted the two points at
+each edge of our spatial domain to avoid boundary effects.)
+
+Our initial conditions we choose are arbitrary: suppose that our roadway
+is the domain \(-3\leq x\leq 3\) and that we start with a mass of cars
+with density \(\rho_{max}/2\) for all points \(x<-1.5\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{k}{using} \PY{n}{LinearAlgebra}
+          \PY{k}{using} \PY{n}{PyPlot}
+          
+          \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{dx} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{/} \PY{l+m+mi}{400}
+          \PY{n}{dt} \PY{o}{=} \PY{l+m+mf}{0.8} \PY{o}{*} \PY{n}{dx} \PY{o}{/} \PY{n}{umax}
+          \PY{n}{xq} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3} \PY{o}{:} \PY{n}{dx} \PY{o}{:} \PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+          \PY{c}{\PYZsh{}insert location of traffic light}
+          \PY{n}{xq} \PY{o}{=} \PY{n}{insert!}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{dx} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+          \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2}
+          \PY{n}{tq} \PY{o}{=} \PY{l+m+mi}{0} \PY{o}{:} \PY{n}{dt} \PY{o}{:} \PY{n}{T} \PY{c}{\PYZsh{}this is the time vector over one time period}
+          
+          \PY{c}{\PYZsh{}load initial condition vector}
+          \PY{n}{ρi} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{n}
+              \PY{k}{if} \PY{n}{xq}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}
+                  \PY{n}{ρi}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{ρmax} \PY{o}{/} \PY{l+m+mi}{2} 
+              \PY{k}{else} \PY{c}{\PYZsh{}save time; stop running once at 0}
+                  \PY{k}{break}
+              \PY{k}{end}
+          \PY{k}{end}
+          
+          \PY{n}{ratio} \PY{o}{=} \PY{n}{dt} \PY{o}{/} \PY{n}{dx}
+          \PY{n}{m} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{tq}\PY{p}{)}
+          \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)} 
+          \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi}
+          \PY{n}{Fforward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{n}{Fbackward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{n}{tol} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}9}
+          \PY{n}{qdot} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{l+m+mi}{1}\PY{p}{]} \PY{c}{\PYZsh{}just to start off the qdot vector}
+          \PY{n}{ρ1} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+          \PY{n}{ρ2} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+          \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{while} \PY{n}{abs}\PY{p}{(}\PY{n}{qdot}\PY{p}{[}\PY{k}{end}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{qdot}\PY{p}{[}\PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{tol}
+              \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)} \PY{c}{\PYZsh{}reset the ρ vector}
+              \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi} \PY{c}{\PYZsh{}start where we ended on the last period}
+              \PY{k}{for} \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{m}
+                  \PY{n}{ρqi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{j} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{c}{\PYZsh{}calculate backwards and forwards fluxes}
+                      \PY{n}{Fforward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                      \PY{n}{Fbackward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{end}
+                  \PY{c}{\PYZsh{}i = 1}
+                  \PY{n}{Fforward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{c}{\PYZsh{}set maximum flux at the left boundary}
+                  \PY{n}{ρq0} \PY{o}{=} \PY{n}{ρmax} \PY{o}{/} \PY{l+m+mi}{2} 
+                  \PY{n}{Fbackward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρq0}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{c}{\PYZsh{}use quadratic interpolation to reconstruct ρ at the right boundary}
+                  \PY{c}{\PYZsh{}i = n}
+                  \PY{c}{\PYZsh{}Vandermonde matrix}
+                  \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}
+                  \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{]}
+                  \PY{n}{coeff} \PY{o}{=} \PY{n}{A} \PY{o}{\PYZbs{}} \PY{n}{b}
+                  \PY{n}{ρqnplusone} \PY{o}{=} \PY{n}{dot}\PY{p}{(}\PY{n}{coeff}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx} \PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx}\PY{p}{)} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{Fforward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{ρqnplusone}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{n}{Fbackward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{tq}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZlt{}=} \PY{n}{T} \PY{o}{/} \PY{l+m+mi}{2} \PY{c}{\PYZsh{}red light}
+                      \PY{n}{Fforward}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}forward flux zero at red light}
+                      \PY{n}{Fbackward}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}backward flux zero after red light}
+                  \PY{k}{end}
+                  \PY{n}{ρq}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρqi} \PY{o}{\PYZhy{}} \PY{n}{ratio} \PY{o}{*} \PY{p}{(}\PY{n}{Fforward} \PY{o}{\PYZhy{}} \PY{n}{Fbackward}\PY{p}{)} \PY{c}{\PYZsh{}update with FVM}
+              \PY{k}{end}
+              \PY{n}{u} \PY{o}{=} \PY{n}{umax} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{.\PYZhy{}} \PY{p}{(}\PY{n}{ρq}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{:} \PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{/} \PY{n}{ρmax}\PY{p}{)}\PY{p}{)}
+              \PY{n}{qdot} \PY{o}{=} \PY{n}{hcat}\PY{p}{(}\PY{n}{qdot}\PY{p}{,} \PY{n}{sum}\PY{p}{(}\PY{n}{ρq}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{:} \PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{.*} \PY{n}{u}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{m} \PY{o}{*} \PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{}average flow over interior points}
+              \PY{n}{ρi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+              \PY{k}{if} \PY{n}{counter} \PY{o}{==} \PY{l+m+mi}{0}
+                  \PY{n}{ρ1} \PY{o}{=} \PY{n}{ρq}
+                  \PY{n}{counter} \PY{o}{+=} \PY{l+m+mi}{1}
+              \PY{k}{elseif} \PY{n}{counter} \PY{o}{==} \PY{l+m+mi}{1} 
+                  \PY{n}{ρ2} \PY{o}{=} \PY{n}{ρq}
+                  \PY{n}{counter} \PY{o}{+=} \PY{l+m+mi}{1}
+              \PY{k}{end}
+          \PY{k}{end}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{w}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{qdot}\PY{p}{[}\PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{5}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{7}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{4}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{\PYZbs{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{T}\PY{l+s}{/}\PY{l+s}{4}\PY{l+s}{+}\PY{l+s}{\PYZbs{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{q}\PY{l+s}{u}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{l}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{T}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{+}\PY{l+s}{\PYZbs{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{f}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{T}\PY{l+s}{/}\PY{l+s}{4}\PY{l+s}{+}\PY{l+s}{\PYZbs{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{q}\PY{l+s}{u}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{l}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The average flow (road capacity) over a time period of T=2 is 0.12504219648144413.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}151}]:} PyObject Text(0.5, 1.0, 'Steady-state solution after three quarter-periods (green light still on)')
+\end{Verbatim}
+            
+    We modify our condition below to be the same as in problem 1, and we
+still reach the same steady-state periodic solution, as expected,
+showing consistency in our approach.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{k}{using} \PY{n}{LinearAlgebra}
+          \PY{k}{using} \PY{n}{PyPlot}
+          
+          \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{dx} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{/} \PY{l+m+mi}{400}
+          \PY{n}{dt} \PY{o}{=} \PY{l+m+mf}{0.8} \PY{o}{*} \PY{n}{dx} \PY{o}{/} \PY{n}{umax}
+          \PY{n}{xq} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3} \PY{o}{:} \PY{n}{dx} \PY{o}{:} \PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+          \PY{c}{\PYZsh{}insert location of traffic light}
+          \PY{n}{xq} \PY{o}{=} \PY{n}{insert!}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{dx} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+          \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2}
+          \PY{n}{tq} \PY{o}{=} \PY{l+m+mi}{0} \PY{o}{:} \PY{n}{dt} \PY{o}{:} \PY{n}{T} \PY{c}{\PYZsh{}this is the time vector over one time period}
+          
+          \PY{c}{\PYZsh{}load initial condition vector; this time a mass of cars starting at the light}
+          \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{n}
+              \PY{k}{if} \PY{n}{xq}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}
+                  \PY{n}{ρi}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.8}
+              \PY{k}{else} \PY{c}{\PYZsh{}save time; stop running once at 0}
+                  \PY{k}{break}
+              \PY{k}{end}
+          \PY{k}{end}
+          
+          \PY{n}{ratio} \PY{o}{=} \PY{n}{dt} \PY{o}{/} \PY{n}{dx}
+          \PY{n}{m} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{tq}\PY{p}{)}
+          \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)} 
+          \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi}
+          \PY{n}{Fforward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{n}{Fbackward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{n}{tol} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}9}
+          \PY{n}{qdot} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{l+m+mi}{1}\PY{p}{]} \PY{c}{\PYZsh{}just to start off the qdot vector}
+          \PY{n}{ρ1} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+          \PY{n}{ρ2} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+          \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{while} \PY{n}{abs}\PY{p}{(}\PY{n}{qdot}\PY{p}{[}\PY{k}{end}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{qdot}\PY{p}{[}\PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{tol}
+              \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)} \PY{c}{\PYZsh{}reset the ρ vector}
+              \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi} \PY{c}{\PYZsh{}start where we ended on the last period}
+              \PY{k}{for} \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{m}
+                  \PY{n}{ρqi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{j} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{c}{\PYZsh{}calculate backwards and forwards fluxes}
+                      \PY{n}{Fforward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                      \PY{n}{Fbackward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{end}
+                  \PY{c}{\PYZsh{}i = 1}
+                  \PY{n}{Fforward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{n}{ρq0} \PY{o}{=} \PY{l+m+mf}{0.8}
+                  \PY{n}{Fbackward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρq0}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{c}{\PYZsh{}use quadratic interpolation to reconstruct ρ at the right boundary}
+                  \PY{c}{\PYZsh{}i = n}
+                  \PY{c}{\PYZsh{}Vandermonde matrix}
+                  \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}
+                  \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{]}
+                  \PY{n}{coeff} \PY{o}{=} \PY{n}{A} \PY{o}{\PYZbs{}} \PY{n}{b}
+                  \PY{n}{ρqnplusone} \PY{o}{=} \PY{n}{dot}\PY{p}{(}\PY{n}{coeff}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx} \PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx}\PY{p}{)} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{Fforward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{ρqnplusone}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{n}{Fbackward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{tq}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZlt{}=} \PY{n}{T} \PY{o}{/} \PY{l+m+mi}{2} \PY{c}{\PYZsh{}red light}
+                      \PY{n}{Fforward}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}forward flux zero at red light}
+                      \PY{n}{Fbackward}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}backward flux zero after red light}
+                  \PY{k}{end}
+                  \PY{n}{ρq}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρqi} \PY{o}{\PYZhy{}} \PY{n}{ratio} \PY{o}{*} \PY{p}{(}\PY{n}{Fforward} \PY{o}{\PYZhy{}} \PY{n}{Fbackward}\PY{p}{)} \PY{c}{\PYZsh{}update with FVM}
+              \PY{k}{end}
+              \PY{n}{u} \PY{o}{=} \PY{n}{umax} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{.\PYZhy{}} \PY{p}{(}\PY{n}{ρq}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{:} \PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{/} \PY{n}{ρmax}\PY{p}{)}\PY{p}{)}
+              \PY{n}{qdot} \PY{o}{=} \PY{n}{hcat}\PY{p}{(}\PY{n}{qdot}\PY{p}{,} \PY{n}{sum}\PY{p}{(}\PY{n}{ρq}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{:} \PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{.*} \PY{n}{u}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{m} \PY{o}{*} \PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{}average flow over interior points}
+              \PY{n}{ρi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+              \PY{k}{if} \PY{n}{counter} \PY{o}{==} \PY{l+m+mi}{0}
+                  \PY{n}{ρ1} \PY{o}{=} \PY{n}{ρq}
+                  \PY{n}{counter} \PY{o}{+=} \PY{l+m+mi}{1}
+              \PY{k}{elseif} \PY{n}{counter} \PY{o}{==} \PY{l+m+mi}{1} 
+                  \PY{n}{ρ2} \PY{o}{=} \PY{n}{ρq}
+                  \PY{n}{counter} \PY{o}{+=} \PY{l+m+mi}{1}
+              \PY{k}{end}
+          \PY{k}{end}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{w}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{qdot}\PY{p}{[}\PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{k}{using} \PY{n}{LinearAlgebra}
+          \PY{k}{using} \PY{n}{PyPlot}
+          
+          \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{dx} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{/} \PY{l+m+mi}{400}
+          \PY{n}{dt} \PY{o}{=} \PY{l+m+mf}{0.8} \PY{o}{*} \PY{n}{dx} \PY{o}{/} \PY{n}{umax}
+          \PY{n}{xq} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3} \PY{o}{:} \PY{n}{dx} \PY{o}{:} \PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+          \PY{c}{\PYZsh{}insert location of traffic light}
+          \PY{n}{xq} \PY{o}{=} \PY{n}{insert!}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{dx} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+          \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2}
+          \PY{n}{tq} \PY{o}{=} \PY{l+m+mi}{0} \PY{o}{:} \PY{n}{dt} \PY{o}{:} \PY{n}{T} \PY{c}{\PYZsh{}this is the time vector over one time period}
+          
+          \PY{c}{\PYZsh{}load initial condition vector}
+          \PY{n}{ρi} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{n}
+              \PY{k}{if} \PY{n}{xq}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}
+                  \PY{n}{ρi}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.8}
+              \PY{k}{else} \PY{c}{\PYZsh{}save time; stop running once at 0}
+                  \PY{k}{break}
+              \PY{k}{end}
+          \PY{k}{end}
+          
+          \PY{n}{ratio} \PY{o}{=} \PY{n}{dt} \PY{o}{/} \PY{n}{dx}
+          \PY{n}{m} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{tq}\PY{p}{)}
+          \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)} 
+          \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi}
+          \PY{n}{Fforward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{n}{Fbackward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{n}{tol} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}9}
+          \PY{n}{qdot} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{l+m+mi}{1}\PY{p}{]} \PY{c}{\PYZsh{}just to start off the qdot vector}
+          \PY{n}{ρ1} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+          \PY{n}{ρ2} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+          \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{while} \PY{n}{abs}\PY{p}{(}\PY{n}{qdot}\PY{p}{[}\PY{k}{end}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{qdot}\PY{p}{[}\PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{tol}
+              \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)} \PY{c}{\PYZsh{}reset the ρ vector}
+              \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi} \PY{c}{\PYZsh{}start where we ended on the last period}
+              \PY{k}{for} \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{m}
+                  \PY{n}{ρqi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{j} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{c}{\PYZsh{}calculate backwards and forwards fluxes}
+                      \PY{n}{Fforward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                      \PY{n}{Fbackward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{end}
+                  \PY{c}{\PYZsh{}i = 1}
+                  \PY{n}{Fforward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{n}{ρq0} \PY{o}{=} \PY{l+m+mf}{0.8}
+                  \PY{n}{Fbackward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρq0}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{c}{\PYZsh{}use quadratic interpolation to reconstruct ρ at the right boundary}
+                  \PY{c}{\PYZsh{}i = n}
+                  \PY{c}{\PYZsh{}Vandermonde matrix}
+                  \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}
+                  \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{]}
+                  \PY{n}{coeff} \PY{o}{=} \PY{n}{A} \PY{o}{\PYZbs{}} \PY{n}{b}
+                  \PY{n}{ρqnplusone} \PY{o}{=} \PY{n}{dot}\PY{p}{(}\PY{n}{coeff}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx} \PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx}\PY{p}{)} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{Fforward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{ρqnplusone}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{n}{Fbackward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{tq}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZlt{}=} \PY{n}{T} \PY{o}{/} \PY{l+m+mi}{2} \PY{c}{\PYZsh{}red light}
+                      \PY{n}{Fforward}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}forward flux zero at red light}
+                      \PY{n}{Fbackward}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}backward flux zero after red light}
+                  \PY{k}{end}
+                  \PY{n}{ρq}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρqi} \PY{o}{\PYZhy{}} \PY{n}{ratio} \PY{o}{*} \PY{p}{(}\PY{n}{Fforward} \PY{o}{\PYZhy{}} \PY{n}{Fbackward}\PY{p}{)} \PY{c}{\PYZsh{}update with FVM}
+              \PY{k}{end}
+              \PY{n}{u} \PY{o}{=} \PY{n}{umax} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{.\PYZhy{}} \PY{p}{(}\PY{n}{ρq}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{:} \PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{/} \PY{n}{ρmax}\PY{p}{)}\PY{p}{)}
+              \PY{n}{qdot} \PY{o}{=} \PY{n}{hcat}\PY{p}{(}\PY{n}{qdot}\PY{p}{,} \PY{n}{sum}\PY{p}{(}\PY{n}{ρq}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{:} \PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{.*} \PY{n}{u}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{m} \PY{o}{*} \PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{}average flow over interior points}
+              \PY{n}{ρi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+              \PY{k}{if} \PY{n}{counter} \PY{o}{==} \PY{l+m+mi}{0}
+                  \PY{n}{ρ1} \PY{o}{=} \PY{n}{ρq}
+                  \PY{n}{counter} \PY{o}{+=} \PY{l+m+mi}{1}
+              \PY{k}{elseif} \PY{n}{counter} \PY{o}{==} \PY{l+m+mi}{1} 
+                  \PY{n}{ρ2} \PY{o}{=} \PY{n}{ρq}
+                  \PY{n}{counter} \PY{o}{+=} \PY{l+m+mi}{1}
+              \PY{k}{end}
+          \PY{k}{end}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{w}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{qdot}\PY{p}{[}\PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{5}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{7}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{4}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{\PYZbs{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{T}\PY{l+s}{/}\PY{l+s}{4}\PY{l+s}{+}\PY{l+s}{\PYZbs{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{q}\PY{l+s}{u}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{l}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{T}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{+}\PY{l+s}{\PYZbs{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{f}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{T}\PY{l+s}{/}\PY{l+s}{4}\PY{l+s}{+}\PY{l+s}{\PYZbs{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{x}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{q}\PY{l+s}{u}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{l}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The average flow (road capacity) over a time period of T=2 is 0.12504219648144413.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The average flow (road capacity) over a time period of T=2 is 0.12504219648144413.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}173}]:} PyObject Text(0.5, 1.0, 'Steady-state solution after three quarter-periods (green light still on)')
+\end{Verbatim}
+            
+    \subsection{Problem 3}\label{problem-3}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{k}{using} \PY{n}{LinearAlgebra}
+          \PY{k}{using} \PY{n}{PyPlot}
+          
+          \PY{k}{function} \PY{n}{roadcapacity}\PY{p}{(}\PY{n}{ρmax}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{τ}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{tol}\PY{p}{)}
+              \PY{n}{dx} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{/} \PY{l+m+mi}{400}
+              \PY{n}{dt} \PY{o}{=} \PY{l+m+mf}{0.8} \PY{o}{*} \PY{n}{dx} \PY{o}{/} \PY{n}{umax}
+              \PY{n}{xq} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3} \PY{o}{:} \PY{n}{dx} \PY{o}{:} \PY{l+m+mi}{3}\PY{p}{)}
+              \PY{n}{n} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{xq}\PY{p}{)}
+              \PY{n}{tq} \PY{o}{=} \PY{l+m+mi}{0} \PY{o}{:} \PY{n}{dt} \PY{o}{:} \PY{n}{T} \PY{c}{\PYZsh{}this is the time vector over one time period}
+          
+              \PY{c}{\PYZsh{}load initial condition vector}
+              \PY{n}{ρi} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{n}
+                  \PY{k}{if} \PY{n}{xq}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}
+                      \PY{n}{ρi}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{ρmax} \PY{o}{/} \PY{l+m+mi}{2} 
+                  \PY{k}{else} \PY{c}{\PYZsh{}save time; stop running once at 0}
+                      \PY{k}{break}
+                  \PY{k}{end}
+              \PY{k}{end}
+          
+              \PY{n}{ratio} \PY{o}{=} \PY{n}{dt} \PY{o}{/} \PY{n}{dx}
+              \PY{n}{m} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{tq}\PY{p}{)}
+              \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)} 
+              \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi}
+              \PY{n}{Fforward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+              \PY{n}{Fbackward} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+              \PY{n}{qdot} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{l+m+mi}{1}\PY{p}{]} \PY{c}{\PYZsh{}just to start off the qdot vector}
+              \PY{n}{ρ1} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+              \PY{n}{ρ2} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+              \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{while} \PY{n}{abs}\PY{p}{(}\PY{n}{qdot}\PY{p}{[}\PY{k}{end}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{qdot}\PY{p}{[}\PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{tol}
+                  \PY{n}{ρq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{)} \PY{c}{\PYZsh{}reset the ρ vector}
+                  \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρi} \PY{c}{\PYZsh{}start where we ended on the last period}
+                  \PY{k}{for} \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{m}
+                      \PY{n}{ρqi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{j} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+                      \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{:} \PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{c}{\PYZsh{}calculate backwards and forwards fluxes}
+                          \PY{n}{Fforward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                          \PY{n}{Fbackward}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                      \PY{k}{end}
+                      \PY{c}{\PYZsh{}i = 1}
+                      \PY{n}{Fforward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                      \PY{c}{\PYZsh{}set maximum flux at the left boundary}
+                      \PY{n}{ρq0} \PY{o}{=} \PY{l+m+mf}{0.8}
+                      \PY{n}{Fbackward}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρq0}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                      \PY{c}{\PYZsh{}use quadratic interpolation to reconstruct ρ at the right boundary}
+                      \PY{c}{\PYZsh{}i = n}
+                      \PY{c}{\PYZsh{}Vandermonde matrix}
+                      \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{;} \PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{n}{xq}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}
+                      \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{;} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{]}
+                      \PY{n}{coeff} \PY{o}{=} \PY{n}{A} \PY{o}{\PYZbs{}} \PY{n}{b}
+                      \PY{n}{ρqnplusone} \PY{o}{=} \PY{n}{dot}\PY{p}{(}\PY{n}{coeff}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1} \PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx} \PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{dx}\PY{p}{)} \PY{o}{\PYZca{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                      \PY{n}{Fforward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{ρqnplusone}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                      \PY{n}{Fbackward}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{godunovflux}\PY{p}{(}\PY{n}{ρqi}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ρqi}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{ρmax}\PY{p}{)}
+                      \PY{k}{if} \PY{n}{tq}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZlt{}=} \PY{n}{T} \PY{o}{/} \PY{l+m+mi}{2} \PY{c}{\PYZsh{}red light; impose that F,ρ=0 at x=0}
+                          \PY{n}{index1} \PY{o}{=} \PY{n}{findall}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{x} \PY{o}{==} \PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{xq}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                          \PY{n}{Fforward}\PY{p}{[}\PY{n}{index1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}forward flux zero at red light}
+                          \PY{n}{Fbackward}\PY{p}{[}\PY{n}{index1} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}backward flux zero after red light}
+                      \PY{k}{end}
+                      \PY{c}{\PYZsh{}`mod` is used, because the signals are periodic by T}
+                      \PY{k}{if} \PY{n}{mod}\PY{p}{(}\PY{n}{τ}\PY{p}{,} \PY{n}{T}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{T} \PY{o}{/} \PY{l+m+mi}{2} \PY{c}{\PYZsh{}in this case, the red light region is disconnected in time for each period}
+                          \PY{k}{if} \PY{n}{tq}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZlt{}=} \PY{n}{mod}\PY{p}{(}\PY{n}{τ}\PY{p}{,} \PY{n}{T}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{T} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{||} \PY{n}{tq}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{mod}\PY{p}{(}\PY{n}{τ}\PY{p}{,} \PY{n}{T}\PY{p}{)} \PY{c}{\PYZsh{}red light; impose that F,ρ=0 at x=0.15  }
+                              \PY{n}{index2} \PY{o}{=} \PY{n}{findall}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{x} \PY{o}{==} \PY{n}{x2}\PY{p}{,} \PY{n}{xq}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                              \PY{n}{Fforward}\PY{p}{[}\PY{n}{index2}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}forward flux zero at red light}
+                              \PY{n}{Fbackward}\PY{p}{[}\PY{n}{index2} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}backward flux zero after red light}
+                          \PY{k}{end} 
+                      \PY{k}{else} \PY{c}{\PYZsh{}otherwise, the red light region is connected in time}
+                          \PY{k}{if} \PY{n}{tq}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZlt{}=} \PY{n}{mod}\PY{p}{(}\PY{n}{τ}\PY{p}{,} \PY{n}{T}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{T} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{n}{tq}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{mod}\PY{p}{(}\PY{n}{τ}\PY{p}{,} \PY{n}{T}\PY{p}{)} \PY{c}{\PYZsh{}red light; impose that F,ρ=0 at x=0.15  }
+                              \PY{n}{index2} \PY{o}{=} \PY{n}{findall}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{x} \PY{o}{==} \PY{n}{x2}\PY{p}{,} \PY{n}{xq}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                              \PY{n}{Fforward}\PY{p}{[}\PY{n}{index2}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}forward flux zero at red light}
+                              \PY{n}{Fbackward}\PY{p}{[}\PY{n}{index2} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c}{\PYZsh{}backward flux zero after red light}
+                          \PY{k}{end}     
+                      \PY{k}{end}
+                      \PY{n}{ρq}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{o}{:}\PY{p}{]} \PY{o}{=} \PY{n}{ρqi} \PY{o}{\PYZhy{}} \PY{n}{ratio} \PY{o}{*} \PY{p}{(}\PY{n}{Fforward} \PY{o}{\PYZhy{}} \PY{n}{Fbackward}\PY{p}{)} \PY{c}{\PYZsh{}update with FVM}
+                  \PY{k}{end}
+                  \PY{n}{u} \PY{o}{=} \PY{n}{umax} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{.\PYZhy{}} \PY{p}{(}\PY{n}{ρq}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{:} \PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{/} \PY{n}{ρmax}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{qdot} \PY{o}{=} \PY{n}{hcat}\PY{p}{(}\PY{n}{qdot}\PY{p}{,} \PY{n}{sum}\PY{p}{(}\PY{n}{ρq}\PY{p}{[}\PY{o}{:}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{:} \PY{k}{end} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{.*} \PY{n}{u}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{m} \PY{o}{*} \PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{}average flow over interior points}
+                  \PY{n}{ρi} \PY{o}{=} \PY{n}{ρq}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}
+                  \PY{k}{if} \PY{n}{counter} \PY{o}{==} \PY{l+m+mi}{0}
+                      \PY{n}{ρ1} \PY{o}{=} \PY{n}{ρq}
+                      \PY{n}{counter} \PY{o}{+=} \PY{l+m+mi}{1}
+                  \PY{k}{elseif} \PY{n}{counter} \PY{o}{==} \PY{l+m+mi}{1} 
+                      \PY{n}{ρ2} \PY{o}{=} \PY{n}{ρq}
+                      \PY{n}{counter} \PY{o}{+=} \PY{l+m+mi}{1}
+                  \PY{k}{end}
+              \PY{k}{end}
+              \PY{k}{return} \PY{n}{qdot}\PY{p}{[}\PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{,} \PY{n}{ρ2}
+          \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}132}]:} roadcapacity (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2}
+          \PY{n}{kq} \PY{o}{=} \PY{l+m+mi}{0} \PY{o}{:} \PY{l+m+mi}{9}
+          \PY{n}{τq} \PY{o}{=} \PY{p}{(}\PY{n}{T} \PY{o}{/} \PY{l+m+mi}{10}\PY{p}{)} \PY{o}{*} \PY{n}{kq}
+          \PY{n}{tol} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}9}
+          \PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{0.15}
+          
+          \PY{n}{k} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{kq}\PY{p}{)}
+          \PY{n}{capacityq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{k}
+              \PY{n}{qdot}\PY{p}{,} \PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{,} \PY{n}{ρ2} \PY{o}{=} \PY{n}{roadcapacity}\PY{p}{(}\PY{n}{ρmax}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{τq}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{tol}\PY{p}{)}
+              \PY{n}{capacityq}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{qdot}
+          \PY{k}{end}
+          
+          \PY{n}{plot}\PY{p}{(}\PY{n}{τq}\PY{p}{,} \PY{n}{capacityq}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{τ}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{s}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{q}\PY{l+s}{̇}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{k}\PY{l+s}{i}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{s}\PY{l+s}{.}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{1}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{qdotmax} \PY{o}{=} \PY{n}{maximum}\PY{p}{(}\PY{n}{capacityq}\PY{p}{)}
+          \PY{n}{indmax} \PY{o}{=} \PY{n}{findall}\PY{p}{(}\PY{n}{a} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{a} \PY{o}{==} \PY{n}{qdotmax}\PY{p}{,} \PY{n}{capacityq}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{τoptimal} \PY{o}{=} \PY{n}{τq}\PY{p}{[}\PY{n}{indmax}\PY{p}{]}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{τ}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{τoptimal}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{qdotmax}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{qdotmin} \PY{o}{=} \PY{n}{minimum}\PY{p}{(}\PY{n}{capacityq}\PY{p}{)}
+          \PY{n}{indmin} \PY{o}{=} \PY{n}{findall}\PY{p}{(}\PY{n}{a} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{a} \PY{o}{==} \PY{n}{qdotmin}\PY{p}{,} \PY{n}{capacityq}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{τworst} \PY{o}{=} \PY{n}{τq}\PY{p}{[}\PY{n}{indmin}\PY{p}{]}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{τ}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{τworst}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{qdotmin}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The optimal delay (τ) over a time period of T=2 is 1.8.
+The road capacity at this optimal delay is 0.12517633375004697.
+The least optimal delay (τ) over a time period of T=2 is 1.0.
+The road capacity at this least optimal delay is 0.07502780838043749.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2}
+          \PY{n}{kq} \PY{o}{=} \PY{l+m+mi}{0} \PY{o}{:} \PY{l+m+mi}{49}
+          \PY{n}{k} \PY{o}{=} \PY{n}{length}\PY{p}{(}\PY{n}{kq}\PY{p}{)}
+          \PY{n}{τq} \PY{o}{=} \PY{p}{(}\PY{n}{T} \PY{o}{/} \PY{n}{k}\PY{p}{)} \PY{o}{*} \PY{n}{kq}
+          \PY{n}{tol} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}9}
+          \PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{0.15}
+          
+          \PY{n}{capacityq} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{k}
+              \PY{n}{qdot}\PY{p}{,} \PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{,} \PY{n}{ρ2} \PY{o}{=} \PY{n}{roadcapacity}\PY{p}{(}\PY{n}{ρmax}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{τq}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{tol}\PY{p}{)}
+              \PY{n}{capacityq}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{qdot}
+          \PY{k}{end}
+          
+          \PY{n}{plot}\PY{p}{(}\PY{n}{τq}\PY{p}{,} \PY{n}{capacityq}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{τ}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{g}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{s}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{q}\PY{l+s}{̇}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{k}\PY{l+s}{i}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{v}\PY{l+s}{s}\PY{l+s}{.}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s}{5}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{qdotmax} \PY{o}{=} \PY{n}{maximum}\PY{p}{(}\PY{n}{capacityq}\PY{p}{)}
+          \PY{n}{indmax} \PY{o}{=} \PY{n}{findall}\PY{p}{(}\PY{n}{a} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{a} \PY{o}{==} \PY{n}{qdotmax}\PY{p}{,} \PY{n}{capacityq}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{τoptimal} \PY{o}{=} \PY{n}{τq}\PY{p}{[}\PY{n}{indmax}\PY{p}{]}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{τ}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{τoptimal}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{qdotmax}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{qdotmin} \PY{o}{=} \PY{n}{minimum}\PY{p}{(}\PY{n}{capacityq}\PY{p}{)}
+          \PY{n}{indmin} \PY{o}{=} \PY{n}{findall}\PY{p}{(}\PY{n}{a} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{a} \PY{o}{==} \PY{n}{qdotmin}\PY{p}{,} \PY{n}{capacityq}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{τworst} \PY{o}{=} \PY{n}{τq}\PY{p}{[}\PY{n}{indmin}\PY{p}{]}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{τ}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{τworst}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{l}\PY{l+s}{a}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{qdotmin}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The optimal delay (τ) over a time period of T=2 is 0.28.
+The road capacity at this optimal delay is 0.12524218700227324.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The least optimal delay (τ) over a time period of T=2 is 1.0.
+The road capacity at this least optimal delay is 0.07502780838043749.
+
+    \end{Verbatim}
+
+    We plot the steady-state periodic solutions for if the second traffic
+light uses the optimal delay, and if it uses the least optimal delay.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2} 
+          \PY{n}{τ} \PY{o}{=} \PY{l+m+mf}{0.28}
+          \PY{n}{tol} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}9}
+          \PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{0.15}
+          
+          \PY{n}{capacity}\PY{p}{,} \PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{,} \PY{n}{ρ2} \PY{o}{=} \PY{n}{roadcapacity}\PY{p}{(}\PY{n}{ρmax}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{τ}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{tol}\PY{p}{)}
+          
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{w}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{capacity}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{5}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{7}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{4}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{loc2} \PY{o}{=} \PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mf}{0.15} \PY{o}{/} \PY{n}{dx}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{}index where x=0.15}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{q}\PY{l+s}{u}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{f}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{q}\PY{l+s}{u}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The average flow (road capacity) over a time period of T=2 is 0.12524218700227324.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}171}]:} PyObject Text(0.5, 1.0, 'Steady-state solution after three quarter-periods (first green, second green)')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}170}]:} \PY{n}{ρmax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{umax} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2} 
+          \PY{n}{τ} \PY{o}{=} \PY{l+m+mf}{1.0}
+          \PY{n}{tol} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}9}
+          \PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{0.15}
+          
+          \PY{n}{capacity}\PY{p}{,} \PY{n}{xq}\PY{p}{,} \PY{n}{ρq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{,} \PY{n}{ρ2} \PY{o}{=} \PY{n}{roadcapacity}\PY{p}{(}\PY{n}{ρmax}\PY{p}{,} \PY{n}{umax}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{τ}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{tol}\PY{p}{)}
+          
+          \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{g}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{w}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{p}\PY{l+s}{a}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{)}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{T}\PY{l+s}{=}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{capacity}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{0}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{1}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ1}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{5}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{3}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{7}\PY{l+s}{/}\PY{l+s}{2}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{,} \PY{n}{ρ2}\PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{o}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{L}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s}{h}\PY{l+s}{o}\PY{l+s}{(}\PY{l+s}{x}\PY{l+s}{,}\PY{l+s}{4}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{o}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{loc2} \PY{o}{=} \PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mf}{0.15} \PY{o}{/} \PY{n}{dx}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{}index where x=0.15}
+          \PY{n}{println}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{b}\PY{l+s}{e}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{q}\PY{l+s}{u}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{h}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{f}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{u}\PY{l+s}{r}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{:} \PY{n}{loc2}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{g}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{xq}\PY{p}{[}\PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{n}{ρq}\PY{p}{[}\PY{k+kt}{Int64}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{m} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc2} \PY{o}{:} \PY{k}{end}\PY{p}{]}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{o}\PY{l+s}{f}\PY{l+s}{ }\PY{l+s}{c}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{v}\PY{l+s}{e}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{s}\PY{l+s}{/}\PY{l+s}{k}\PY{l+s}{m}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{y}\PY{l+s}{\PYZhy{}}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{q}\PY{l+s}{u}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{\PYZhy{}}\PY{l+s}{p}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{d}\PY{l+s}{s}\PY{l+s}{ }\PY{l+s}{(}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{r}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{g}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{,}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{e}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The average flow (road capacity) over a time period of T=2 is 0.07502780838043749.
+0.15
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}170}]:} PyObject Text(0.5, 1.0, 'Steady-state solution after three quarter-periods (first green, second red)')
+\end{Verbatim}
+            
+    Visually, we see that the steady-state periodic solution for the least
+optimal delay has much less density overall after the traffic lights
+than for the optimal delay case. Also, note that the optimal delay case
+is not unique: there are multiple optimal delays possible, as we can see
+from the graph.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
