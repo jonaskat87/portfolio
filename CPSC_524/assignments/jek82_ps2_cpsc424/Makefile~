@@ -1,0 +1,60 @@
+# This makes both a sequential and parallel program to display the Mandelbrot Set
+# Use module load intel
+
+CC = icc
+
+CFLAGS_OMP = -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing
+CFLAGS_SERIAL = -g -O3 -xHost -fno-alias -std=c99 -I/gpfs/gibbs/project/cpsc424/shared/utils/timing
+
+EXECUTABLES = mandseq mandomp-critical mandomp-atomic mandomp-reduction ts-random mandomp-ts mandomp-loops mandomp-collapse mandomp-tasks mandomp-tasks-row mandomp-tasks-shared mandomp-tasks-row-shared ts-random-2
+
+TIMING = /gpfs/gibbs/project/cpsc424/shared/utils/timing/timing.o
+all: $(EXECUTABLES)
+
+# Build code for Exercise 1
+mandseq: exercise_1.c drand.o $(TIMING)  
+	$(CC) $(CFLAGS_SERIAL) -o $@ $^ -lm
+
+mandomp-critical: exercise_2-crit.c drand.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+mandomp-atomic: exercise_2-atom.c drand.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+mandomp-reduction: exercise_2-reduce.c drand.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+# make drand-ts.o if it has not already been made
+
+ts-random: drand-ts.c
+	$(CC) $(CFLAGS_OMP) -c $^ -lm
+
+# Use atomic from now on
+mandomp-ts: exercise_2-reduce.c drand-ts.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+mandomp-loops: exercise_2-loops.c drand-ts.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+mandomp-collapse: exercise_2-collapse.c drand-ts.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+mandomp-tasks: exercise_3.c drand-ts.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+mandomp-tasks-row: exercise_3-row.c drand-ts.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+mandomp-tasks-shared: exercise_3-tasks-shared.o drand-ts.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+mandomp-tasks-row-shared: exercise_3-tasks-row-shared.o drand-ts.o $(TIMING)
+	$(CC) $(CFLAGS_OMP) -o $@ $^ -lm
+
+# make drand-ts-2.o if it has not already been made
+
+ts-random-2: drand-ts-2.c
+	$(CC) $(CFLAGS_OMP) -c $^ -lm
+
+clean:
+	rm -f $(EXECUTABLES) exercise*.o drand-ts.o drand-ts-2.o

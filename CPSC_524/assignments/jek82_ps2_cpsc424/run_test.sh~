@@ -1,0 +1,1 @@
+echo '12' | ./rand_test | awk '{if (NR>1) print}' | tr '\n' ' ' | tr ' ' ',' > tmp.txt

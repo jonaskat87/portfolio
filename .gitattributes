@@ -1,0 +1,1 @@
+SDS_689/HW3/mnist_train.csv filter=lfs diff=lfs merge=lfs -text

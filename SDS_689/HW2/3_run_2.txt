@@ -1,0 +1,11 @@
+CUDA available. Using GPU acceleration.
+Finished training with width 10, latest loss 0.4834171235561371
+L2 relative error for width 10: 0.251593665242906
+Finished training with width 30, latest loss 0.13566352427005768
+L2 relative error for width 30: 0.17274400985998734
+Finished training with width 100, latest loss 9.225818757840898e-06
+L2 relative error for width 100: 0.17295768537162973
+Finished training with width 300, latest loss 3.280375312897377e-05
+L2 relative error for width 300: 0.15292169704399008
+Finished training with width 1000, latest loss 2.6056520709971664e-06
+L2 relative error for width 1000: 0.15377185691195155

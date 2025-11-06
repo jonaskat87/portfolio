@@ -1,0 +1,81 @@
+/* Benchmark vector triad. */
+
+# include <stdio.h>
+# include <stdlib.h>
+# include "timing.h" // using provided timing routine
+# include "dummy.h" // using provided dummy routine
+# include <math.h>
+
+int main() {
+  double wcTime_i, wcTime_f, cpuTime, runtime; // start wallclock time, end wallclock time, cpu time, and runtime (wcTime_f-wcTime_i), respectively
+  int max_size = floor(pow(2.1, 25.0)); // maximum elements needed
+  /* initialize a,b,c,d with max sizes available to reuse preallocated 
+     memory addresses and thereby reduce latency */
+  double *a = malloc(max_size * sizeof(double));
+  double *b = malloc(max_size * sizeof(double));
+  double *c = malloc(max_size * sizeof(double));
+  double *d = malloc(max_size * sizeof(double));
+  // loop through N=floor(2.1**k) for k=3...25
+  int N, Nr, repeat, k, i, r; // define all indices and lengths
+  for (k = 3; k < 26; ++k) {
+    N = floor(pow(2.1, (double) k)); // value of N for this iteration
+    /* initialize a,b,c,d with random double precision numbers using 4-way
+       unrolling (to speed up this part up a bit, since it is untimed; 
+       should in theory speed things up because the memory addresses for
+       each element of a,b,c,d are near each other) */
+    Nr = 4*(N/4);
+    for (i = 0; i < Nr; i+=4) {
+      a[i] = 100.0 * (double) rand() / (double) RAND_MAX;
+      a[i+1] = 100.0 * (double) rand() / (double) RAND_MAX;
+      a[i+2] = 100.0 * (double) rand() / (double) RAND_MAX;
+      a[i+3] = 100.0 * (double) rand() / (double) RAND_MAX;
+      b[i] = 100.0 * (double) rand() / (double) RAND_MAX;
+      b[i+1] = 100.0 * (double) rand() / (double) RAND_MAX;
+      b[i+2] = 100.0 * (double) rand() / (double) RAND_MAX;
+      b[i+3] = 100.0 * (double) rand() / (double) RAND_MAX;
+      c[i] = 100.0 * (double) rand() / (double) RAND_MAX;
+      c[i+1] = 100.0 * (double) rand() / (double) RAND_MAX;
+      c[i+2] = 100.0 * (double) rand() / (double) RAND_MAX;
+      c[i+3] = 100.0 * (double) rand() / (double) RAND_MAX;
+      d[i] = 100.0 * (double) rand() / (double) RAND_MAX;
+      d[i+1] = 100.0 * (double) rand() / (double) RAND_MAX;
+      d[i+2] = 100.0 * (double) rand() / (double) RAND_MAX;
+      d[i+3] = 100.0 * (double) rand() / (double) RAND_MAX;
+    }
+    // remainder loop
+    for(i = Nr; i < N; ++i){
+      a[i] = 100.0 * (double) rand() / (double) RAND_MAX;
+      b[i] = 100.0 * (double) rand() / (double) RAND_MAX;
+      c[i] = 100.0 * (double) rand() / (double) RAND_MAX;
+      d[i] = 100.0 * (double) rand() / (double) RAND_MAX;
+    }
+    // taking code fragment provided
+    repeat = 1;
+    runtime = 0.0;
+    while(runtime < 1.0) {
+      timing(&wcTime_i, &cpuTime);
+      for (r = 0; r < repeat; ++r) {
+        for (i = 0; i < N; ++i) {
+	  a[i] = b[i] + c[i] * d[i];
+	}
+	if (a[N >> 1] < 0) dummy(a,b,c,d); // fools the compiler
+      }
+      timing(&wcTime_f, &cpuTime);
+      runtime = wcTime_f - wcTime_i;
+      repeat *= 2;
+    }
+    repeat /= 2;
+    // return two columns: first is N, second is MFlops
+    /* Note: There are 2 floating-point operations per i, which gives us 
+       2 * N * repeat in total. runtime is the wallclock time, so
+       2 * N * repeat / runtime is our Flops. Finally, divide this by 
+       10^6=1000000 to get MFlops. */
+    printf("%ld %.15lf\n", N, 2.0 * (double)N * repeat / runtime / 1000000.0);
+  }
+  // free up memory
+  free(a);
+  free(b);
+  free(c);
+  free(d);
+  return 0;
+}

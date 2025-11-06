@@ -1,0 +1,2 @@
+Average time: 0.0008475138339982368 seconds
+CPU: Intel64 Family 6 Model 140 Stepping 1, GenuineIntel

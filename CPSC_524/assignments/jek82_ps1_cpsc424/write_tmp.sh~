@@ -1,0 +1,2 @@
+# run bash script once Slurm job has been completed; it will write output of triad into tmp.txt for plotting in MATLAB
+tail -$(echo `cat tmp.txt | wc -l`) slurm-ps1.out-* > tmp.txt

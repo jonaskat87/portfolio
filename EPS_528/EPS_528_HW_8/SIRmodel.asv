@@ -1,0 +1,4 @@
+function [ ] = SIRmodel(eps, mu, gamma, b1, b2, b3, Omega1, ...
+    S0, I0, R0, Tf, tol, flag)
+
+beta = beta(t) = 16 * mu * ()

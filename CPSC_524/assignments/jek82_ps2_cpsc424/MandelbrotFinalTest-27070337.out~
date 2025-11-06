@@ -1,0 +1,396 @@
+
+The following have been reloaded with a version change:
+  1) GCCcore/12.2.0 => GCCcore/10.2.0                                 6) impi/2021.7.1-intel-compilers-2022.2.1 => impi/2019.9.304-iccifort-2020.4.304
+  2) UCX/1.13.1-GCCcore-12.2.0 => UCX/1.9.0-GCCcore-10.2.0            7) intel/2022b => intel/2020b
+  3) binutils/2.39-GCCcore-12.2.0 => binutils/2.35-GCCcore-10.2.0     8) numactl/2.0.16-GCCcore-12.2.0 => numactl/2.0.13-GCCcore-10.2.0
+  4) iimpi/2022b => iimpi/2020b                                       9) zlib/1.2.12-GCCcore-12.2.0 => zlib/1.2.11-GCCcore-10.2.0
+  5) imkl/2022.2.1 => imkl/2020.4.304-iimpi-2020b
+
+
+Currently Loaded Modules:
+  1) StdEnv                     (S)   4) binutils/2.35-GCCcore-10.2.0    7) UCX/1.9.0-GCCcore-10.2.0             10) imkl/2020.4.304-iimpi-2020b
+  2) GCCcore/10.2.0                   5) iccifort/2020.4.304             8) impi/2019.9.304-iccifort-2020.4.304  11) intel/2020b
+  3) zlib/1.2.11-GCCcore-10.2.0       6) numactl/2.0.13-GCCcore-10.2.0   9) iimpi/2020b
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+rm -f mandseq mandomp-critical mandomp-atomic mandomp-reduction ts-random mandomp-ts mandomp-loops mandomp-collapse mandomp-tasks mandomp-tasks-row mandomp-tasks-shared mandomp-tasks-row-shared mandomp-collapse-ts ts-random-2 exercise*.o drand-ts.o drand-ts-2.o
+make ts-random
+icc -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -c drand-ts.c -lm
+make mandomp-tasks
+icc -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -o mandomp-tasks exercise_3.c drand-ts.o /gpfs/gibbs/project/cpsc424/shared/utils/timing/timing.o -lm
+
+
+Performance runs for thread-safe OpenMP with tasks
+
+Number of threads =  1
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 66.111314 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 66.071666 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 66.103343 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Number of threads =  2
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 33.501829 s.
+Approximated area of the Mandelbrot Set is 1.506694000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 33.517486 s.
+Approximated area of the Mandelbrot Set is 1.506644000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 33.505733 s.
+Approximated area of the Mandelbrot Set is 1.506688000000000.
+
+Number of threads =  4
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 17.578185 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 17.552532 s.
+Approximated area of the Mandelbrot Set is 1.506764000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 17.356684 s.
+Approximated area of the Mandelbrot Set is 1.506810000000000.
+
+Number of threads =  12
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 6.672569 s.
+Approximated area of the Mandelbrot Set is 1.506746000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 6.674652 s.
+Approximated area of the Mandelbrot Set is 1.506672000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 6.669721 s.
+Approximated area of the Mandelbrot Set is 1.506820000000000.
+
+Number of threads =  24
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 4.022631 s.
+Approximated area of the Mandelbrot Set is 1.506570000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 4.024561 s.
+Approximated area of the Mandelbrot Set is 1.506614000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 4.031518 s.
+Approximated area of the Mandelbrot Set is 1.506730000000000.
+
+rm -f mandseq mandomp-critical mandomp-atomic mandomp-reduction ts-random mandomp-ts mandomp-loops mandomp-collapse mandomp-tasks mandomp-tasks-row mandomp-tasks-shared mandomp-tasks-row-shared mandomp-collapse-ts ts-random-2 exercise*.o drand-ts.o drand-ts-2.o
+make ts-random
+icc -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -c drand-ts.c -lm
+make mandomp-tasks-row
+icc -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -o mandomp-tasks-row exercise_3-row.c drand-ts.o /gpfs/gibbs/project/cpsc424/shared/utils/timing/timing.o -lm
+
+
+Performance runs for thread-safe OpenMP with row tasks
+
+Number of threads =  1
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 50.180743 s.
+Approximated area of the Mandelbrot Set is 1.506638000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 50.306754 s.
+Approximated area of the Mandelbrot Set is 1.506638000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 49.930994 s.
+Approximated area of the Mandelbrot Set is 1.506638000000000.
+
+Number of threads =  2
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 25.231568 s.
+Approximated area of the Mandelbrot Set is 1.506720000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 25.330118 s.
+Approximated area of the Mandelbrot Set is 1.506874000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 25.344386 s.
+Approximated area of the Mandelbrot Set is 1.506746000000000.
+
+Number of threads =  4
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 13.331219 s.
+Approximated area of the Mandelbrot Set is 1.506748000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 13.371712 s.
+Approximated area of the Mandelbrot Set is 1.506728000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 13.332118 s.
+Approximated area of the Mandelbrot Set is 1.506640000000000.
+
+Number of threads =  12
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 5.279719 s.
+Approximated area of the Mandelbrot Set is 1.506684000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 5.216143 s.
+Approximated area of the Mandelbrot Set is 1.506682000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 5.259230 s.
+Approximated area of the Mandelbrot Set is 1.506696000000000.
+
+Number of threads =  24
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 3.584152 s.
+Approximated area of the Mandelbrot Set is 1.506782000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 3.590570 s.
+Approximated area of the Mandelbrot Set is 1.506738000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 3.599423 s.
+Approximated area of the Mandelbrot Set is 1.506628000000000.
+
+rm -f mandseq mandomp-critical mandomp-atomic mandomp-reduction ts-random mandomp-ts mandomp-loops mandomp-collapse mandomp-tasks mandomp-tasks-row mandomp-tasks-shared mandomp-tasks-row-shared mandomp-collapse-ts ts-random-2 exercise*.o drand-ts.o drand-ts-2.o
+make ts-random
+icc -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -c drand-ts.c -lm
+make mandomp-tasks-shared
+icc -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -o mandomp-tasks-shared exercise_3-tasks-shared.c drand-ts.o /gpfs/gibbs/project/cpsc424/shared/utils/timing/timing.o -lm
+
+
+Performance runs for thread-safe OpenMP with shared task creation
+
+Number of threads =  1
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 66.157297 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 66.167060 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 66.169748 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Number of threads =  2
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 34.054638 s.
+Approximated area of the Mandelbrot Set is 1.506826000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 34.059233 s.
+Approximated area of the Mandelbrot Set is 1.506800000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 34.127812 s.
+Approximated area of the Mandelbrot Set is 1.506660000000000.
+
+Number of threads =  4
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 18.935712 s.
+Approximated area of the Mandelbrot Set is 1.506582000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 18.923550 s.
+Approximated area of the Mandelbrot Set is 1.506644000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 18.904741 s.
+Approximated area of the Mandelbrot Set is 1.506810000000000.
+
+Number of threads =  12
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 7.764758 s.
+Approximated area of the Mandelbrot Set is 1.506720000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 7.972390 s.
+Approximated area of the Mandelbrot Set is 1.506766000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 7.950017 s.
+Approximated area of the Mandelbrot Set is 1.506718000000000.
+
+Number of threads =  24
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 5.270970 s.
+Approximated area of the Mandelbrot Set is 1.506622000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 5.249984 s.
+Approximated area of the Mandelbrot Set is 1.506550000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 5.294062 s.
+Approximated area of the Mandelbrot Set is 1.506792000000000.
+
+rm -f mandseq mandomp-critical mandomp-atomic mandomp-reduction ts-random mandomp-ts mandomp-loops mandomp-collapse mandomp-tasks mandomp-tasks-row mandomp-tasks-shared mandomp-tasks-row-shared mandomp-collapse-ts ts-random-2 exercise*.o drand-ts.o drand-ts-2.o
+make ts-random
+icc -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -c drand-ts.c -lm
+make mandomp-tasks-row-shared
+icc -g -O3 -xHost -fno-alias -std=c99 -qopenmp -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -o mandomp-tasks-row-shared exercise_3-tasks-row-shared.c drand-ts.o /gpfs/gibbs/project/cpsc424/shared/utils/timing/timing.o -lm
+
+
+Performance runs for thread-safe OpenMP with row tasks and shared task creation
+
+Number of threads =  1
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 51.326269 s.
+Approximated area of the Mandelbrot Set is 1.506638000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 51.301611 s.
+Approximated area of the Mandelbrot Set is 1.506638000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 51.299470 s.
+Approximated area of the Mandelbrot Set is 1.506638000000000.
+
+Number of threads =  2
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 26.143040 s.
+Approximated area of the Mandelbrot Set is 1.506876000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 26.111609 s.
+Approximated area of the Mandelbrot Set is 1.506818000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 26.117595 s.
+Approximated area of the Mandelbrot Set is 1.506774000000000.
+
+Number of threads =  4
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 13.146293 s.
+Approximated area of the Mandelbrot Set is 1.506748000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 13.252018 s.
+Approximated area of the Mandelbrot Set is 1.506714000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 13.412620 s.
+Approximated area of the Mandelbrot Set is 1.506826000000000.
+
+Number of threads =  12
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 5.326563 s.
+Approximated area of the Mandelbrot Set is 1.506790000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 4.708591 s.
+Approximated area of the Mandelbrot Set is 1.506732000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 5.339092 s.
+Approximated area of the Mandelbrot Set is 1.506678000000000.
+
+Number of threads =  24
+OMP_SCHEDULE =  dynamic,250
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 3.280100 s.
+Approximated area of the Mandelbrot Set is 1.506732000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 3.402947 s.
+Approximated area of the Mandelbrot Set is 1.506774000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for numerical integration was 3.685654 s.
+Approximated area of the Mandelbrot Set is 1.506748000000000.
+
+rm -f mandseq mandomp-critical mandomp-atomic mandomp-reduction ts-random mandomp-ts mandomp-loops mandomp-collapse mandomp-tasks mandomp-tasks-row mandomp-tasks-shared mandomp-tasks-row-shared mandomp-collapse-ts ts-random-2 exercise*.o drand-ts.o drand-ts-2.o

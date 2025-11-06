@@ -1,0 +1,32 @@
+
+Currently Loaded Modules:
+  1) StdEnv                     (S)   4) binutils/2.35-GCCcore-10.2.0    7) UCX/1.9.0-GCCcore-10.2.0             10) imkl/2020.4.304-iimpi-2020b
+  2) GCCcore/10.2.0                   5) iccifort/2020.4.304             8) impi/2019.9.304-iccifort-2020.4.304  11) intel/2020b
+  3) zlib/1.2.11-GCCcore-10.2.0       6) numactl/2.0.13-GCCcore-10.2.0   9) iimpi/2020b
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+rm -f mandseq mandomp-critical mandomp-atomic mandomp-reduction ts-random mandomp-ts mandomp-loops mandomp-collapse mandomp-tasks mandomp-tasks-row mandomp-tasks-shared mandomp-tasks-row-shared exercise*.o
+make mandseq
+icc -g -O3 -xHost -fno-alias -std=c99 -I/gpfs/gibbs/project/cpsc424/shared/utils/timing -o mandseq exercise_1.c drand.o /gpfs/gibbs/project/cpsc424/shared/utils/timing/timing.o -lm
+
+
+Serial version
+Run 1:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for algorithm was 64.938541 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Run 2:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for algorithm was 64.930869 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+
+Run 3:
+Seed = 12344. RAND_MAX = 2147483647.
+Wallclock time elapsed for algorithm was 64.930575 s.
+Approximated area of the Mandelbrot Set is 1.506632000000000.
+

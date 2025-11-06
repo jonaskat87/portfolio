@@ -1,0 +1,91 @@
+function [ data ] = BTW1(L, nmax, plotting)
+% Model size is LxL
+% nmax is the number of iterations
+% plotting = 1 (or true) if plot intermediate results
+% plotting = 0 (or false) if do not plot intermediate results
+
+% initialize grid
+U = randi(4, L) - 1;
+% store avalanche count here
+avalanche = zeros(L);
+% iterate simulation
+i = 0;
+if plotting
+    figure(1)
+    imagesc(U)
+    colormap(flipud(autumn))
+    colorbar
+    caxis([0 4])
+    title(['Iterations: ', num2str(i)])
+    xlabel('x-position')
+    ylabel('y-position')
+end
+for i = 1 : nmax
+    ind = randi(L, 1, 2);
+    U(ind(1), ind(2)) = U(ind(1), ind(2)) + 1;
+    if plotting
+        figure(1)
+        imagesc(U)
+        colormap(flipud(autumn))
+        colorbar
+        caxis([0 4])
+        title(['Iterations: ', num2str(i)])
+        xlabel('x-position')
+        ylabel('y-position')    
+    end
+    % relax first site if needed because we know where it is
+    if U(ind(1), ind(2)) > 3
+        if ind(1) ~= L
+            U(ind(1) + 1, ind(2)) = U(ind(1) + 1, ind(2)) + 1;
+        elseif ind(1) ~= 1
+            U(ind(1) - 1, ind(2)) = U(ind(1) - 1, ind(2)) + 1;
+        elseif ind(2) ~= L
+            U(ind(1), ind(2) + 1) = U(ind(1), ind(2) + 1) + 1;
+        elseif ind(2) ~= 1
+            U(ind(1), ind(2) - 1) = U(ind(1), ind(2) - 1) + 1;
+        end
+        U(ind(1), ind(2)) = 0;
+        avalanche(ind(1), ind(2)) = 1;
+        if plotting
+        	figure(1)
+            imagesc(U)
+            colormap(flipud(autumn))
+            colorbar
+            caxis([0 4])
+            title(['Iterations: ', num2str(i)])
+            xlabel('x-position')
+            ylabel('y-position')  
+        end
+    end
+    % find other unstable locations
+    [I, J] = find(U > 3);
+    len = length(I);
+    while len > 0
+        for k = 1 : len
+            if I(k) ~= L
+                U(I(k) + 1, J(k)) = U(I(k) + 1, J(k)) + 1;
+            elseif I(k) ~= 1
+                U(I(k) - 1, J(k)) = U(I(k) - 1, J(k)) + 1;
+            elseif J(k) ~= L
+                U(I(k), J(k) + 1) = U(I(k), J(k) + 1) + 1;
+            elseif J(k) ~= 1
+                U(I(k), J(k) - 1) = U(I(k), J(k) - 1) + 1;
+            end
+            U(I(k), J(k)) = 0;
+            avalanche(ind(1), ind(2)) = 1;
+        end
+        if plotting
+            figure(1)
+            imagesc(U)
+            colormap(flipud(autumn))
+            colorbar
+            caxis([0 4])
+            title(['Iterations: ', num2str(i)])
+            xlabel('x-position')
+            ylabel('y-position')  
+        end
+        [I, J] = find(U > 3);
+        len = length(I);
+    end
+    avalanche = zeros(L);
+end

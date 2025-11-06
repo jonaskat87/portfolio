@@ -1,0 +1,1 @@
+Average time: 0.018050555339991115 seconds

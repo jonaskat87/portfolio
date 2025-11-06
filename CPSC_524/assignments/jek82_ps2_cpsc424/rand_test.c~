@@ -1,0 +1,20 @@
+/* testing out the range of drand() */
+
+# include <stdlib.h>
+# include "drand.h" // using provided random number generator
+
+int main() {
+  int N; // number of times to print
+
+  // clear screen for input
+  system("clear");
+  // take user input for N
+  scanf("%d", &N);
+
+  dsrand(12345); // set random seed
+
+  for (int i = 0; i < a; ++i) {
+    printf("%ld\n", drand());
+  }
+  return 0;
+}

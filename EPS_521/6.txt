@@ -1,0 +1,44 @@
+close all 
+
+movienumber = 6; % change for movie name
+
+% physical parameters
+T = 8 * 60 * 60; % [s]
+theta = 60; % latitude, in degrees
+phi = 45; % local angle about vertical in degrees
+% x goes along the channel, y goes across the channel
+a = 6360e3; % [m]
+g = 9.80665; % [m/s^2]
+Omega = 7.2921e-5; % [rad/s]
+H = 50; % [m]
+D = 200e3; % [m]
+L = 1000e3; % [m]
+s = 5; % scaling parameter (>2)
+
+% numerical parameters
+dt = 2;
+dx = L * 5e-3;
+dy = D * 5e-3;
+fluxlimiter = 'superbee'; % set flux limiter
+% options for flux limiter include minmod, superbee, ospre,
+%  vanleer, vanalbada
+
+% simulation parameters
+M = round(T / dt);
+Nx = 2 * round(L / (2 * dx)) + 1;
+Ny = 2 * round(D / (2 * dy)) + 1; 
+t = 0;
+
+% initial conditions
+soli = zeros(Nx, Ny, 3);
+% % dam-breaking
+% soli(1 : (Nx - 1) / 2, :, 1) = H + (H / s);
+% soli((Nx + 1) / 2 : end, :, 1) = H - (H / s);
+% water slam
+soli(:, :, 1) = H;
+soli(1 : (Nx - 1) / 2, :, 2) = H;
+soli((Nx + 1) / 2 : end, :, 2) = -H;
+% % hump of water
+% xq = 1 : Nx;
+% soli(:, :, 1) = (H + (H / s) * (exp(-(400 *...
+% ((xq / Nx) - 1 / 2).^2)) - 1)).' * ones(1, Ny);

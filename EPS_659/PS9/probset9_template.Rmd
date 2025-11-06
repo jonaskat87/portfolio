@@ -1,0 +1,159 @@
+---
+title: "PSet9"
+author: "Jeffrey Park"
+date: "11/23/2021"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+Problem 1 is all algebra and calculus
+
+Problem 2a
+```{r}
+
+time <- 0:99
+xdata <- sin(2*pi*time/20)
+
+plot(time,xdata,'l')
+
+
+
+
+```
+Problem 2b
+
+```{r}
+
+time <- 0:99
+xdata <- sin(2*pi*time/7)
+
+
+```
+Problem 2c
+```{r}
+
+xdata <- sin(2*pi*time/20)
+xpad <- rep(0.0,1000)
+xpad[1:100] <- xdata
+
+```
+Problem 3a
+
+# note that both forward and inverse FFTs are unnormalized
+# inverse=FALSE --> exp(-i2\pi ft)
+# inverse=TRUE --> exp(+i2\pi ft)
+
+```{r}
+
+xdata <- rnorm(1000,mean=0,sd=1)
+mean(xdata)
+mean(xdata^2)
+
+```
+
+Problem  3b
+
+```{r}
+hist(perid,xlim=c(0.0,0.01),breaks=100)
+
+
+```
+Problem 3c
+
+# the amplitude of a deterministic cycle B
+# the standard deviation of a zero-mean Gaussian process N(0,A)
+
+```{r}
+sig0 <- sin(2*pi*time/20.0)
+
+
+
+
+```
+
+Problem 3d
+
+```{r}
+# check out the confidence limits for the chi-squared distribution 
+conf <- c(0.9,0.95,0.99,0.999)
+
+```
+
+
+# deterministic signal of sinusoid 
+#
+# so to 
+```{r}
+time <- 0:999
+
+
+```
+
+
+Problem 3e
+
+for cycle amplitude B, the periodogram scales as 
+and N(0,A) background noise, periodogram scales as 
+
+so if N --> 2N, the threshhold for detecting a cyclic signal 
+
+
+Problem 3f
+
+```{r}
+
+pgram3 <- rep(0,998)
+pgram3 <- (perid[1:998]+perid[2:999]+perid[3:1000])/3
+
+
+
+```
+Problem 4a
+
+```{r}
+
+mloa <- read.csv("co2_maunaloa.csv")
+names(mloa)
+ttt <- mloa$TIME
+co2 <- mloa$CO2
+plot(ttt,co2,type='l')
+
+```
+Problem 4b
+
+```{r}
+
+npts <- length(co2_resid)
+
+```
+Problem 4c
+
+```{r}
+
+pgram3 <- (pgram[1:(npts-2)]+pgram[2:(npts-1)]+pgram[3:npts])/3.0
+
+
+```
+Problem 4d
+
+```{r}
+co2_diff <- rep(0,npts)
+co2_diff[2:npts] <- co2_resid[2:npts] - co2_resid[1:(npts-1)]
+title(main="Mauna Loa Carbon Dioxide (ppm) first difference")
+
+```
+Problem 4e
+
+```{r}
+co2pad <- rep(0,6000)
+co2pad[0:npts] <- co2_diff
+dfpad <- 12.0/6000.0
+fpad <- dfpad*(0:5999)
+
+npad <- 6000
+
+
+```
+

@@ -1,0 +1,58 @@
+/* Approximate pi by numerical integration of 1.0 / (1.0 + x*x) from 0 to 1 and then multiplying the result by 4.0. Benchmark the routine.
+Numerical integration scheme used is the midpoint rule.*/
+
+# include <stdio.h>
+# include <stdlib.h> // for clearing screen, user input, and abs
+# include <math.h> // to get exact value of pi and evaluate at sine
+# include "timing.h" // using provided timing routine
+
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
+int main() {
+  int N; // number of points
+  double sum = 0.0; // accumulated integral value
+  double wcTime_i, wcTime_f, cpuTime; // start wallclock time, end wallclock time, and cpu time, respectively
+    
+  // clear screen just in case for input
+  system("clear");
+  // take user input for N
+  scanf("%d", &N);
+
+  double dx = 1.0 / (double)N; // increment size; floating point errors propagate better with multiplication than division
+  double xi = dx / 2.0; // the points to evaluate integrand at, initialized at x0 
+
+  timing(&wcTime_i, &cpuTime); // start times for routine
+  for (int i = 1; i < N; ++i) {
+    sum += dx / (1.0 + xi * xi); // update integral
+    xi += dx; // update xi
+  }
+  timing(&wcTime_f, &cpuTime); // end times for routine
+
+  sum *= 4.0; // multiply by four to get pi approximation
+  // print value of pi
+  printf("The approximated value of pi is %.15lf.\n", sum);
+  // print difference of approx pi from exact pi in math library
+  printf("|pi_exact-pi_approx|=%.15lf.\n", fabs(M_PI - sum));
+  // print sine evaluated at approx pi
+  printf("sin(pi_approx)=%.15lf.\n", sin(sum));
+  // print wallclock time elapsed for numerical integration
+  double wcTime = wcTime_f - wcTime_i;
+  printf("Wallclock time elapsed for numerical integration was %lf s.\n", wcTime);
+  // print MFlops
+  /* (note on how MFlops are computed in this case)
+  each iteration takes five floating point operations:
+  1. xi * xi
+  2. 1.0 + (result for 1)
+  3. dx / (result for 2)
+  4. sum += result for 3
+  5. xi += dx
+  There are N total of these operations that have to be done, giving us 
+  5 * N floating-point operations. Hence, we get the Flops by dividing the 
+  result by the wallclock time, or wcTime. Finally, to turn Flops into 
+  MFlops, we divide the result by 10^6=1000000. */
+  printf("MFlops needed for numerical integration was %lf MFlops.\n", 5.0 * (double)N / wcTime / 1000000.0);
+  
+  return 0;
+}

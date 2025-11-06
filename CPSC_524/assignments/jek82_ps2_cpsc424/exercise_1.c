@@ -1,0 +1,73 @@
+/* serial Mandelbrot set code */
+
+# include <stdlib.h>
+# include <math.h>
+# include "timing.h" // using provided timing routine
+# include "drand.h" // using provided random number generator
+
+int main() {
+  int a,b,N; // number of horizontal elements, vertical elements, and iterations, respectively
+  double h, wcTime_i, wcTime_f, cpuTime; // step size, wallclock time, end wallclock time, and cpu time, respectively
+
+  // clear screen for input
+  system("clear");
+  // take user input for N
+  scanf("%d", &N);
+  // take user input for h
+  scanf("%lf", &h);
+
+  dsrand(12345); // set random seed
+
+  // compute a and b from h
+  a = round((0.5 + 2.0) / h);
+  b = round((1.25 - 0.0) / h);
+  // check if h divides the dimensions properly. If not, return error
+  if ( (a != ((0.5 + 2.0) / h)) || (b != ((1.25 - 0.0) / h)) ) {
+      printf("Invalid user input for dx (should divide the side lengths of R). Aborted.\n");
+      exit(-1);
+  }
+
+  /* no need to save virtual grid since we can just loop and count NI and NO
+     directly now that we know a and b */
+  timing(&wcTime_i, &cpuTime); // start times for routine
+  int NI = 0; // initialize number of elements in the Mandelbrot set
+  double cx,cy; // real and imaginary parts of c, respectively
+  double w, zx; // initial, final values of the real part of z, respectively
+  double zy; // imaginary part of z
+  for (int i = 0; i < a; ++i) {
+    for (int j = 0; j < b; ++j) {
+      cx = (drand() + (double)i) * h - 2.0;
+      cy = (drand() + (double)j) * h;
+      zx = 0.0; // initialize zx
+      zy = 0.0; // initialize zy
+      for (int k = 0; k < N; ++k) {
+	w = zx;
+	zx = w * w - zy * zy + cx; // update real part
+	zy = 2 * w * zy + cy; // update imaginary part
+	/* check if |z| > 2 (or equivalently, |z| ** 2 > 4).
+	   If true, then break iteration and 
+	   test a new value of c. */
+	if ( zx * zx + zy * zy > 4.0 ) {
+	  break;
+	}
+	// if |z| > 2 never reached, then increment NI
+	if ( k == (N - 1)) {
+	  ++NI;
+	}
+      }
+    } 
+  }
+  timing(&wcTime_f, &cpuTime); // end times for routine
+  // print wallclock time elapsed for Monte Carlo area estimation
+  double wcTime = wcTime_f - wcTime_i;
+  printf("Wallclock time elapsed for algorithm was %lf s.\n", wcTime);
+  // print area of Mandelbrot set
+  // area of R is trivial, since rectangle
+  /* a elements in horizontal dimension and b in vertical for rectangular 
+     region, so we are testing a * b total values of c. Thus, if NI of 
+     those are inside the Mandelbrot set, then NO is equal to...*/
+  int NO = a * b - NI; 
+  double area = 2.0 * (double)NI * (0.5 + 2.0) * (1.25 - 0.0) / ((double)(NI + NO));
+  printf("Approximated area of the Mandelbrot Set is %.15lf.\n", area);
+  return 0;
+}

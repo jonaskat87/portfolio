@@ -1,0 +1,173 @@
+---
+title: "PSet7"
+author: "Jeffrey Park"
+date: "10/13/2021"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+data files converted to CSV files with these commands
+
+echo 'YEAR, MONTH, TIME, CO2 ' >! co2_maunaloa.csv
+awk 'NR>53 {print $1 ", " $2 ", " $3 ", " $4}' co2_mm_mlo.txt >> co2_maunaloa.csv
+
+
+
+Problem 1
+
+
+```{r}
+
+mlo_co2 <- read.csv("co2_maunaloa.csv")
+names(mlo_co2)
+temps <- mlo_co2$DTEMPC
+length(temps)
+years <- mlo_co2$YEAR
+months <- mlo_co2$MONTH
+time <- mlo_co2$TIME
+co2 <- mlo_co2$CO2
+
+
+plot(time,co2,col='black',type="l",xlab="",ylab="")
+title("Mauna Loa Carbon Dioxide Measurements",xlab="year",ylab="°Parts Per Million")
+
+```
+
+Problem 1a --  fit to Mauna Loa CO2 in decades
+
+```{r}
+# pre-define arrays for regression parameters of seven data segments \nuline
+ann1 <- 1:7
+ann1_err <- 1:7
+ann2 <- 1:7
+ann2_err <- 1:7
+yr <- 1:7
+
+
+plot(yr,ann1,col='black',xlab="Year",ylab="Annual Cycle Amplitude (ppm CO2)",ylim=range(ann1+ann1_err,ann1-ann1_err))
+
+plot(yr,ann2,col='black',xlab="Year",ylab="SemiAnnual Cycle Amplitude (ppm CO2)",ylim=range(ann2+ann2_err,ann2-ann2_err))
+
+
+
+```
+Problem 1b --  same plot for the annual cycle phase
+```{r}
+# pre-define arrays for regression parameters of seven data segments \nuline
+ann1_phase <- 1:7
+ann1_pherr <- 1:7
+ann2_phase <- 1:7
+ann2_pherr <- 1:7
+yr <- 1:7
+pi2 <- 2.0*pi
+pi4 <- 4.0*pi
+
+plot(yr,ann1_phase,col='black',xlab="Year",ylab="Annual Cycle Phase (degrees)",ylim=range(ann1_phase+ann1_pherr,ann1_phase-ann1_pherr))
+
+plot(yr,ann2_phase,col='black',xlab="Year",ylab="SemiAnnual Cycle Phase (degrees)",ylim=range(ann2_phase+ann2_pherr,ann2_phase-ann2_pherr))
+
+```
+Problem 1c -- plots for time evolution of semi-annual amplitude and phase -
+
+```{r}
+
+```
+
+Problem 2a -- fit log(data) with a two-parameter model
+
+```{r}
+
+plot(time,log(co2))
+
+```
+problem 2b -- log everything back and note predicted values in 1958 and 2021
+```{r}
+
+exp_pred <- exp(pred_logco2)
+
+print(paste("Predictions for March 1958: ",exp_pred[1],"ppm and August 2021: ",exp_pred[npts]))
+print(paste("Actual Values for March 1958: ",co2[1],"ppm and August 2021: ",co2[npts]))
+```
+Problem 2c -- nonlinear least squares for 3-parameter exponential CO2 model -- test starting values of model parameters
+```{r}
+# nonlinear fit of log(co2) \nuline
+# the nls function in R asks for initial values for the regression parameters \nuline
+# which are identified by the start parameter \nuline
+names(lm_logco2)
+
+astart <- 
+bstart <- 
+cstart <- 
+
+time0 <- time-1788
+
+```
+Problem 2c -- nonlinear least squares for 3-parameter exponential CO2 model 
+
+```{r}
+
+print(paste(astart,bstart,cstart))
+
+summary(nlm_co2)
+
+```
+problem 3a -- Singular value decomposition of the G-matrix, data representers referenced to the midpoint of the time series
+
+```{r}
+
+gsvd <- svd(gmatrix,7,7)
+plot(ksing,singval)
+
+print(paste("The condition number is ",condno))
+
+```
+
+Problem 3b -- print out the v-matrix singular vectors with largest and smallest singular values
+
+```{r}
+
+print("v-matrix singular vector with largest singular value")
+
+print("v-matrix singular vector with smallest singular value")
+
+
+```
+problem 3c -- Singular value decomposition of the G-matrix, data representers referenced to the Birth of Christ
+
+```{r}
+
+ksing <- 1:7
+data_rep <- time/2000.0
+data_rep2 <-  data_rep^2
+
+print(paste("The condition number is ",condno))
+
+
+```
+problem 4 -- bootstrap
+
+```{r}
+
+library(boot)
+# define a function to obtain R-Squared from the data
+model <- function(formula,data,indices){
+  d <- data[indices,]
+  fit <- lm(formula,data=d)
+  return(coef(fit))
+}
+
+co2matrix <- data.frame(data=co2,g1=constant,g2=data_representer,g3=data_representer2,g4=ann_c,g5=ann_s,g6=ann2_c,g7=ann2_s)
+
+# bootstrapping with 1000 replications 
+results <- boot(data=co2matrix, statistic=model, 
+   R=1000, formula=data~g2+g3+g4+g5+g6+g7)
+
+results
+plot(results)
+
+results$t0
+
+```
+

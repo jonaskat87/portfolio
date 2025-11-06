@@ -1,0 +1,33 @@
+#!/bin/bash
+#SBATCH --job-name=ps1
+#SBATCH --ntasks=1 --nodes=1 --cpus-per-task=1
+#SBATCH --mem-per-cpu=10G
+#SBATCH --time=10:00
+#SBATCH --partition=day
+#SBATCH --reservation=cpsc424
+#SBATCH --output=slurm-ps1.out-%j
+
+module load intel
+pwd
+echo $SLURMD_NODENAME
+make clean
+make all
+echo ''
+echo '---RESULTS---'
+for i in {1..5}
+do
+    echo ''
+    echo '***Results for icc compiler option '$i':***'
+    echo ''
+    echo 'Pi approximation benchmark:'
+    echo '1000000000' | ./pi_$i
+    echo ''
+    echo 'Division benchmark:'
+    echo '1000000000' | ./div_$i
+done
+echo ''
+echo '***Results for vector triad benchmarking***'
+./triad
+echo ''
+echo '***CPU architecture***'
+lscpu
