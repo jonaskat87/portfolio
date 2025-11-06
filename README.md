@@ -1,0 +1,7 @@
+* CPSC 524: Parallel Programming Techniques (Fall 2023)
+* EPS 521: Geophysical Fluid Dynamics (Spring 2021)
+* EPS 528: Science of Complex Systems (Fall 2020)
+* EPS 659: Time Series Analysis with Geoscience Applications (Fall 2021)
+* Math 228A: Numerical Solutions to Differential Equations (Numerical ODEs + basic numerical linear algebra, Fall 2018)
+* Math 228B: Numerical Solutions to Differential Equations (Numerical PDEs, Spring 2019)
+* S&DS 689: Scientific Machine Learning (Fall 2023)
